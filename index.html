@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>혼합물 분리 실험실</title>
+  <meta name="description" content="자성, 용해도, 끓는점처럼 성질의 차이로 혼합물을 나누는 방법을 배우고, 단계별 실험 시뮬레이션으로 확인하는 중학교 과학 사이트입니다." />
+  <meta name="theme-color" content="#100e0c" />
+  <meta property="og:title" content="혼합물 분리 실험실" />
+  <meta property="og:description" content="성질의 차이로 섞인 물질을 나눠 보세요. 원리, 방법 찾기, 실험 시뮬레이션, 퀴즈." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://saintryu6220.github.io/mixture-lab/" />
+  <meta property="og:locale" content="ko_KR" />
+  <link rel="canonical" href="https://saintryu6220.github.io/mixture-lab/" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="36" height="36">
+          <path d="M12 6h16l-2 10H14L12 6z" fill="#e8d5b0" opacity=".9"/>
+          <path d="M14 16h12l4 18H10l4-18z" fill="#5eead4" opacity=".85"/>
+          <circle cx="20" cy="24" r="3" fill="#fbbf24"/>
+          <circle cx="16" cy="28" r="2" fill="#38bdf8"/>
+          <circle cx="24" cy="27" r="1.8" fill="#f43f5e"/>
+        </svg>
+      </span>
+      <div>
+        <h1>혼합물 분리 실험실</h1>
+        <p>성질의 차이로 섞인 물질을 나눠 보세요</p>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab is-active" data-tab="learn" role="tab" aria-selected="true">원리</button>
+      <button class="tab" data-tab="finder" role="tab" aria-selected="false">방법 찾기</button>
+      <button class="tab" data-tab="lab" role="tab" aria-selected="false">실험하기</button>
+      <button class="tab" data-tab="quiz" role="tab" aria-selected="false">퀴즈</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="learn" class="panel is-active" role="tabpanel">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="kicker">핵심 한 줄</p>
+          <h2>혼합물은 <em>성질이 다른 점</em>을 이용하면 쉽게 분리됩니다.</h2>
+          <p>
+            순물질은 한 가지 물질만 있고, 혼합물은 두 가지 이상이 섞여 있습니다.
+            자성, 입자 크기, 용해도, 끓는점, 밀도처럼 <strong>서로 다른 성질</strong>을 고르면
+            복잡한 도구 없이도 물질을 나눌 수 있습니다.
+          </p>
+          <div class="hero-actions">
+            <button class="btn primary" data-goto="finder">내 혼합물 분리법 찾기</button>
+            <button class="btn ghost" data-goto="lab">바로 실험하기</button>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="compare">
+            <article>
+              <h3>순물질</h3>
+              <p>물, 산소, 소금처럼 한 종류만 있는 물질</p>
+              <div class="dots pure" aria-hidden="true"></div>
+            </article>
+            <article>
+              <h3>혼합물</h3>
+              <p>공기, 바닷물, 흙탕물처럼 여러 물질이 섞인 것</p>
+              <div class="dots mix" aria-hidden="true"></div>
+            </article>
+          </div>
+          <dl class="mini-facts">
+            <div>
+              <dt>불균일 혼합물</dt>
+              <dd>눈에 띄게 섞임이 보임 · 자석, 거름, 체</dd>
+            </div>
+            <div>
+              <dt>균일 혼합물</dt>
+              <dd>골고루 섞임 · 증발, 증류, 크로마토그래피</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <h3 class="section-title">성질 → 분리 방법</h3>
+      <div class="method-grid" id="method-cards"></div>
+    </section>
+
+    <section id="finder" class="panel" role="tabpanel" hidden>
+      <div class="finder-layout">
+        <div>
+          <p class="kicker">맞춤 분리 설계</p>
+          <h2>섞여 있는 물질을 고르세요</h2>
+          <p class="lede">2가지 이상을 고르면, 성질을 비교해 가장 쉬운 분리 순서를 알려 줍니다.</p>
+          <div class="chip-grid" id="substance-chips"></div>
+          <div class="finder-tools">
+            <button class="btn primary" id="plan-btn">분리 방법 설계하기</button>
+            <button class="btn ghost" id="clear-substances">선택 지우기</button>
+          </div>
+        </div>
+        <aside class="plan-board" id="plan-board">
+          <p class="empty-hint">물질을 고른 뒤 ‘분리 방법 설계하기’를 눌러 보세요.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="lab" class="panel" role="tabpanel" hidden>
+      <div class="lab-layout">
+        <aside class="lab-rail">
+          <p class="kicker">실험 선택</p>
+          <div class="preset-list" id="preset-list"></div>
+        </aside>
+        <div class="lab-stage">
+          <div class="stage-head">
+            <div>
+              <h2 id="lab-title">철가루와 모래</h2>
+              <p id="lab-why">자성의 차이를 이용합니다. 철만 자석에 붙습니다.</p>
+            </div>
+            <div class="stage-controls">
+              <button class="btn ghost" id="sim-prev">이전 단계</button>
+              <button class="btn primary" id="sim-play">실험 시작</button>
+              <button class="btn ghost" id="sim-next">다음 단계</button>
+              <button class="btn ghost" id="sim-reset">처음부터</button>
+            </div>
+          </div>
+          <p class="lab-materials" id="lab-materials"></p>
+          <div class="canvas-wrap">
+            <canvas id="lab-canvas" width="960" height="540" aria-label="혼합물 분리 시뮬레이션"></canvas>
+            <div class="live-caption" id="live-caption">
+              <span id="caption-index">1 / 6</span>
+              <strong id="caption-title">준비</strong>
+              <p id="caption-action"></p>
+            </div>
+          </div>
+          <div class="observe-grid">
+            <article>
+              <h3>지금 하는 일</h3>
+              <p id="detail-action"></p>
+            </article>
+            <article>
+              <h3>눈에 보이는 변화</h3>
+              <p id="detail-see"></p>
+            </article>
+            <article>
+              <h3>왜 이렇게 할까요</h3>
+              <p id="detail-reason"></p>
+            </article>
+          </div>
+          <ol class="steps" id="lab-steps"></ol>
+          <p class="lab-result" id="lab-result" hidden></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="panel" role="tabpanel" hidden>
+      <div class="quiz-wrap">
+        <p class="kicker">이해 확인</p>
+        <h2 id="quiz-q">질문이 여기에 나옵니다</h2>
+        <div class="quiz-options" id="quiz-options"></div>
+        <p class="quiz-feedback" id="quiz-feedback" role="status"></p>
+        <div class="quiz-bar">
+          <span id="quiz-progress">1 / 6</span>
+          <button class="btn primary" id="quiz-next" hidden>다음 문제</button>
+          <button class="btn ghost" id="quiz-restart" hidden>다시 풀기</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>중학교 과학 · 물질의 특성 · 혼합물의 분리 · 성질의 차이를 이용하면 됩니다</p>
+    <p class="site-url">사이트 주소 · <a href="https://saintryu6220.github.io/mixture-lab/">saintryu6220.github.io/mixture-lab</a></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
