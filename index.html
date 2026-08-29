@@ -23,7 +23,7 @@
   <div class="bg-glow" aria-hidden="true"></div>
 
   <header class="topbar">
-    <div class="brand">
+    <button type="button" class="brand" id="home-link" data-goto="learn" aria-label="메인 화면으로">
       <span class="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 40 40" width="36" height="36">
           <path d="M12 6h16l-2 10H14L12 6z" fill="#e8d5b0" opacity=".9"/>
@@ -37,13 +37,14 @@
         <h1>혼합물 분리 실험실</h1>
         <p>성질의 차이로 섞인 물질을 나눠 보세요</p>
       </div>
-    </div>
+    </button>
     <nav class="tabs" role="tablist">
-      <button class="tab is-active" data-tab="learn" role="tab" aria-selected="true">원리</button>
+      <button class="tab is-active" data-tab="learn" role="tab" aria-selected="true">홈</button>
       <button class="tab" data-tab="finder" role="tab" aria-selected="false">방법 찾기</button>
       <button class="tab" data-tab="lab" role="tab" aria-selected="false">실험하기</button>
       <button class="tab" data-tab="quiz" role="tab" aria-selected="false">퀴즈</button>
     </nav>
+    <button type="button" class="btn ghost home-back" id="home-back" data-goto="learn" hidden>← 메인으로</button>
   </header>
 
   <main>
@@ -96,6 +97,7 @@
       <div class="finder-layout">
         <div>
           <p class="kicker">맞춤 분리 설계</p>
+          <button type="button" class="btn ghost page-home" data-goto="learn">← 메인으로</button>
           <h2>섞여 있는 물질을 고르세요</h2>
           <p class="lede">2가지 이상을 고르면, 성질을 비교해 가장 쉬운 분리 순서를 알려 줍니다.</p>
           <div class="chip-grid" id="substance-chips"></div>
@@ -123,6 +125,7 @@
               <p id="lab-why">자성의 차이를 이용합니다. 철만 자석에 붙습니다.</p>
             </div>
             <div class="stage-controls">
+              <button class="btn ghost" data-goto="learn">← 메인으로</button>
               <button class="btn ghost" id="sim-prev">이전 단계</button>
               <button class="btn primary" id="sim-play">실험 시작</button>
               <button class="btn ghost" id="sim-next">다음 단계</button>
@@ -161,6 +164,7 @@
     <section id="quiz" class="panel" role="tabpanel" hidden>
       <div class="quiz-wrap">
         <p class="kicker">이해 확인</p>
+        <button type="button" class="btn ghost page-home" data-goto="learn">← 메인으로</button>
         <h2 id="quiz-q">질문이 여기에 나옵니다</h2>
         <div class="quiz-options" id="quiz-options"></div>
         <p class="quiz-feedback" id="quiz-feedback" role="status"></p>

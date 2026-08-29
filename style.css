@@ -58,7 +58,23 @@ body {
   padding: 22px 40px 8px;
   flex-wrap: wrap;
 }
-.brand { display: flex; align-items: center; gap: 14px; }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 16px;
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), opacity .25s ease;
+}
+.brand:hover { transform: translateY(-1px); }
+.brand:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
 .brand-mark {
   width: 48px; height: 48px;
   display: grid; place-items: center;
@@ -88,17 +104,28 @@ body {
   padding: 9px 16px;
   border-radius: 999px;
   cursor: pointer;
+  transition: background .35s cubic-bezier(.22, 1, .36, 1), color .35s ease, transform .25s ease;
 }
+.tab:hover { color: var(--ink); }
 .tab.is-active {
   background: var(--ink);
   color: #161310;
 }
 
+.home-back {
+  flex-shrink: 0;
+  animation: rise .45s cubic-bezier(.22, 1, .36, 1);
+}
+.page-home { margin: 0 0 12px; }
+
 main { padding: 12px 40px 48px; }
-.panel { display: none; animation: rise .45s ease; }
-.panel.is-active { display: block; }
+.panel { display: none; }
+.panel.is-active {
+  display: block;
+  animation: rise .62s cubic-bezier(.16, 1, .3, 1) both;
+}
 @keyframes rise {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(16px) scale(.985); }
   to { opacity: 1; transform: none; }
 }
 
@@ -183,7 +210,7 @@ h2 em { font-style: normal; color: var(--amber); }
 .method-card {
   padding: 16px 16px 18px;
   cursor: pointer;
-  transition: transform .18s ease, border-color .18s ease;
+  transition: transform .4s cubic-bezier(.22, 1, .36, 1), border-color .35s ease, background .35s ease;
 }
 .method-card:hover {
   transform: translateY(-3px);
@@ -218,7 +245,10 @@ h2 em { font-style: normal; color: var(--amber); }
   padding: 11px 16px;
   border-radius: 12px;
   cursor: pointer;
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), box-shadow .28s ease, border-color .28s ease, background .28s ease, opacity .28s ease;
 }
+.btn:hover { transform: translateY(-1px); }
+.btn.primary:hover { box-shadow: 0 10px 24px rgba(20, 184, 166, .28); }
 .btn.primary {
   background: linear-gradient(180deg, #5eead4, #14b8a6);
   color: #06221e;
@@ -255,6 +285,7 @@ h2 em { font-style: normal; color: var(--amber); }
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, background .3s ease;
 }
 .chip .swatch {
   width: 10px; height: 10px; border-radius: 50%;
@@ -302,6 +333,7 @@ h2 em { font-style: normal; color: var(--amber); }
   padding: 12px 14px;
   border-radius: 16px;
   cursor: pointer;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, background .3s ease;
 }
 .preset-btn small { display: block; color: var(--muted); font-size: .78rem; margin-top: 3px; }
 .preset-btn.is-on { border-color: var(--teal); background: var(--teal-dim); }
@@ -346,6 +378,7 @@ h2 em { font-style: normal; color: var(--amber); }
   background: rgba(12, 10, 8, .78);
   border: 1px solid var(--line);
   backdrop-filter: blur(10px);
+  transition: opacity .4s ease, transform .4s cubic-bezier(.22, 1, .36, 1);
 }
 .live-caption span {
   display: inline-block;
@@ -397,6 +430,7 @@ h2 em { font-style: normal; color: var(--amber); }
   font-size: .9rem;
   cursor: pointer;
   border: 1px solid transparent;
+  transition: background .35s ease, border-color .35s ease, transform .3s cubic-bezier(.22, 1, .36, 1);
 }
 .steps li .n {
   width: 36px; height: 36px;
@@ -442,6 +476,7 @@ h2 em { font-style: normal; color: var(--amber); }
   border-radius: 14px;
   padding: 14px 16px;
   cursor: pointer;
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, background .3s ease;
 }
 .quiz-options button:hover { border-color: rgba(45,212,191,.45); }
 .quiz-options button.is-correct { border-color: var(--teal); background: var(--teal-dim); }
@@ -468,4 +503,11 @@ footer a { color: var(--teal); }
     grid-template-columns: 1fr;
   }
   main, .topbar, footer { padding-left: 18px; padding-right: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
 }

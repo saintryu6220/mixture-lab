@@ -193,10 +193,13 @@
       p.hidden = !on;
     });
     if (id === "lab" && !sim) startLab(currentPreset.id, false);
+    const homeBack = $("#home-back");
+    if (homeBack) homeBack.hidden = id === "learn";
     if (updateHash !== false) {
       const next = "#" + id;
       if (location.hash !== next) history.replaceState(null, "", next);
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function renderMethods() {
@@ -361,6 +364,15 @@
     $("#caption-index").textContent = `${stepIndex + 1} / ${steps.length}`;
     $("#caption-title").textContent = s.title;
     $("#caption-action").textContent = s.action;
+    const cap = $("#live-caption");
+    if (cap) {
+      cap.style.opacity = "0";
+      cap.style.transform = "translateY(8px)";
+      requestAnimationFrame(() => {
+        cap.style.opacity = "1";
+        cap.style.transform = "none";
+      });
+    }
     $("#detail-action").textContent = s.action;
     $("#detail-see").textContent = s.see;
     $("#detail-reason").textContent = s.reason;
@@ -402,16 +414,26 @@
     let particles = [];
     let stepIndex = 0;
     let stepT = 0;
-    const STEP_FRAMES = 300;
+    let dt = 1 / 60;
+    let lastTs = 0;
+    const STEP_FRAMES = 420;
 
     const rand = (a, b) => a + Math.random() * (b - a);
     const lerp = (a, b, t) => a + (b - a) * t;
     const clamp01 = (x) => Math.max(0, Math.min(1, x));
-    const ease = (t) => t * t * (3 - 2 * t);
+    const ease = (t) => t * t * t * (t * (t * 6 - 15) + 10);
 
-    const loop = () => {
-      stepT += 1;
+    function advanceTime(now) {
+      if (!lastTs) lastTs = now;
+      dt = Math.min(0.033, Math.max(0.008, (now - lastTs) / 1000));
+      lastTs = now;
+      stepT += dt * 60;
+    }
+
+    const loop = (now) => {
+      advanceTime(now);
       if (stepT >= STEP_FRAMES && stepIndex < currentPreset.steps.length - 1) {
+        lastTs = 0;
         goto(stepIndex + 1, false);
       } else if (stepT >= STEP_FRAMES && stepIndex >= currentPreset.steps.length - 1) {
         running = false;
@@ -424,13 +446,14 @@
     function goto(i, stopAuto) {
       stepIndex = Math.max(0, Math.min(i, currentPreset.steps.length - 1));
       stepT = 0;
+      lastTs = 0;
       renderStepUI(stepIndex);
       if (stopAuto) {
         running = true;
         cancelAnimationFrame(raf);
         $("#sim-play").textContent = "일시정지";
-        const playOne = () => {
-          stepT += 1;
+        const playOne = (now) => {
+          advanceTime(now);
           draw();
           if (stepT < STEP_FRAMES * 0.92 && running) {
             raf = requestAnimationFrame(playOne);
@@ -475,8 +498,10 @@
     }
 
     function moveToward(p, tx, ty, k) {
-      p.x += (tx - p.x) * k;
-      p.y += (ty - p.y) * k;
+      const speed = -Math.log(1 - Math.min(0.28, k * 0.72)) * 60;
+      const a = 1 - Math.exp(-speed * dt);
+      p.x += (tx - p.x) * a;
+      p.y += (ty - p.y) * a;
     }
 
     function glass(x, y, w, h) {
@@ -809,6 +834,8 @@
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = "#100e0c";
       ctx.fillRect(0, 0, W, H);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
       drawers[kind]();
     }
 
@@ -818,6 +845,7 @@
         cancelAnimationFrame(raf);
         stepIndex = 0;
         stepT = 0;
+        lastTs = 0;
         spawnMix();
         renderStepUI(0);
         draw();
@@ -832,6 +860,7 @@
           this.reset();
         }
         running = true;
+        lastTs = 0;
         raf = requestAnimationFrame(loop);
         return true;
       },
