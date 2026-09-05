@@ -88,6 +88,7 @@ body {
 
 .tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   padding: 6px;
   background: rgba(0,0,0,.28);
@@ -150,7 +151,7 @@ h2 em { font-style: normal; color: var(--amber); }
 }
 .hero-actions { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
 
-.hero-card, .plan-board, .lab-stage, .quiz-wrap, .method-card {
+.hero-card, .plan-board, .lab-stage, .quiz-wrap, .method-card, .chem-card {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -497,6 +498,94 @@ footer {
 }
 footer a { color: var(--teal); }
 .site-url { margin-top: 4px; }
+
+.chem-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.chem-search { display: grid; gap: 6px; min-width: min(100%, 280px); color: var(--muted); font-size: .85rem; }
+.chem-search input, .calc-card input, .calc-card select {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,.28);
+  color: var(--ink);
+  font: inherit;
+}
+.chem-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.chem-cats .chip.is-on { border-color: var(--teal); background: var(--teal-dim); }
+.compound-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.compound-mini {
+  text-align: left;
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  padding: 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1), border-color .3s ease;
+}
+.compound-mini:hover, .compound-mini.is-on { transform: translateY(-2px); border-color: rgba(45,212,191,.45); }
+.compound-mini .f {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: var(--amber);
+  margin: 0 0 4px;
+}
+.compound-mini small { color: var(--muted); display: block; }
+.chem-layout {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 18px;
+  align-items: start;
+}
+.chem-card { padding: 20px; }
+.formula-xl {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  margin: 4px 0 10px;
+  color: var(--amber);
+}
+.formula-xl sub { font-size: .62em; }
+.compound-mini .f sub { font-size: .7em; }
+.prop-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+.prop-table th, .prop-table td {
+  text-align: left;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.prop-table th { color: var(--muted); font-weight: 600; width: 38%; }
+.calc-stack { display: grid; gap: 14px; }
+.calc-card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.calc-hint, .calc-out { color: var(--muted); font-size: .9rem; }
+.calc-card label { display: block; margin: 10px 0; font-size: .9rem; }
+.calc-out {
+  margin: 12px 0 0;
+  min-height: 3em;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.calc-out strong { color: var(--teal); }
+
+@media (max-width: 980px) {
+  .compound-grid, .chem-layout { grid-template-columns: 1fr; }
+}
 
 @media (max-width: 980px) {
   .hero, .finder-layout, .lab-layout, .method-grid, .steps, .mini-facts, .compare {

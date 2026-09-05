@@ -171,6 +171,55 @@
     { q: "사인펜 점을 물에 담그면 색이 갈라지는 실험의 이름은?", choices: ["여과", "크로마토그래피", "원심 분리", "승화"], a: 1, why: "색소의 흡착력 차이로 이동 거리가 달라집니다." }
   ];
 
+  const TABS = ["learn", "finder", "lab", "chem", "quiz"];
+
+  const COMPOUNDS = [
+    { id: "h2o", name: "물", formula: "H2O", cat: "분자 화합물", density: 0.998, densNote: "20℃, 액체", sol: "무제한(용매)", solNote: "자신은 용매", curve: null, note: "밀도 비교의 기준. 4℃에서 1.000 g/cm³로 가장 큽니다." },
+    { id: "nacl", name: "염화 나트륨(소금)", formula: "NaCl", cat: "이온 화합물", density: 2.16, densNote: "20℃, 고체", sol: 35.9, solNote: "20℃, 물 100 g당 g", curve: [[0,35.7],[20,35.9],[40,36.4],[60,37.1],[80,38.1],[100,39.2]], note: "온도가 올라도 용해도가 거의 늘지 않습니다. 증발로 결정을 얻습니다." },
+    { id: "kcl", name: "염화 칼륨", formula: "KCl", cat: "이온 화합물", density: 1.98, densNote: "20℃, 고체", sol: 34.0, solNote: "20℃, 물 100 g당 g", curve: [[0,27.6],[20,34.0],[40,40.1],[60,45.8],[80,51.3],[100,56.3]], note: "소금과 비슷하지만 온도가 오르면 더 잘 녹습니다." },
+    { id: "kno3", name: "질산 칼륨", formula: "KNO3", cat: "이온 화합물", density: 2.11, densNote: "20℃, 고체", sol: 31.6, solNote: "20℃, 물 100 g당 g", curve: [[0,13.3],[20,31.6],[40,63.9],[60,110],[80,169],[100,246]], note: "온도에 따른 용해도 변화가 커서 재결정 실험에 자주 씁니다." },
+    { id: "nano3", name: "질산 나트륨", formula: "NaNO3", cat: "이온 화합물", density: 2.26, densNote: "20℃, 고체", sol: 87.6, solNote: "20℃, 물 100 g당 g", curve: [[0,73],[20,88],[40,104],[60,124],[80,148],[100,180]], note: "물에 매우 잘 녹는 이온 화합물입니다." },
+    { id: "naoh", name: "수산화 나트륨", formula: "NaOH", cat: "산·염기", density: 2.13, densNote: "20℃, 고체", sol: 109, solNote: "20℃, 물 100 g당 g", curve: [[0,42],[20,109],[40,129],[60,174],[80,313],[100,337]], note: "물에 녹일 때 열이 많이 납니다. 피부 보호가 필요합니다." },
+    { id: "koh", name: "수산화 칼륨", formula: "KOH", cat: "산·염기", density: 2.12, densNote: "20℃, 고체", sol: 112, solNote: "20℃, 물 100 g당 g", curve: null, note: "강한 염기입니다. 물에 잘 녹습니다." },
+    { id: "caco3", name: "탄산 칼슘", formula: "CaCO3", cat: "이온 화합물", density: 2.71, densNote: "20℃, 방해석", sol: 0.0013, solNote: "20℃, 물 100 g당 g · 거의 안 녹음", curve: null, note: "대리석·석회암의 주성분. 거름으로 물과 나눕니다." },
+    { id: "cacl2", name: "염화 칼슘", formula: "CaCl2", cat: "이온 화합물", density: 2.15, densNote: "20℃, 무수물", sol: 74.5, solNote: "20℃, 물 100 g당 g", curve: [[0,60],[20,74.5],[40,93],[60,137],[80,147],[100,159]], note: "제습제·빙점 강하에 쓰입니다. 녹일 때 열이 납니다." },
+    { id: "caoh2", name: "수산화 칼슘(소석회)", formula: "Ca(OH)2", cat: "산·염기", density: 2.21, densNote: "20℃, 고체", sol: 0.165, solNote: "20℃, 물 100 g당 g · 난용", curve: [[0,0.19],[20,0.17],[40,0.14],[60,0.12],[80,0.09],[100,0.07]], note: "온도가 오르면 오히려 덜 녹습니다(온도가 올라갈수록 용해도 감소)." },
+    { id: "nahco3", name: "탄산수소 나트륨(베이킹소다)", formula: "NaHCO3", cat: "이온 화합물", density: 2.20, densNote: "20℃, 고체", sol: 9.6, solNote: "20℃, 물 100 g당 g", curve: [[0,6.9],[20,9.6],[40,12.7],[60,16.4]], note: "가열하면 이산화 탄소가 나옵니다." },
+    { id: "cuso4", name: "황산 구리(II)", formula: "CuSO4", cat: "이온 화합물", density: 3.60, densNote: "무수물, 흰색", sol: 20.7, solNote: "20℃, 물 100 g당 g(무수물 기준)", curve: [[0,14.3],[20,20.7],[40,28.5],[60,40],[80,55],[100,75.4]], note: "오수화물은 푸른색 CuSO4·5H2O입니다." },
+    { id: "cuso45", name: "황산 구리(II) 오수화물", formula: "CuSO4·5H2O", cat: "이온 화합물", density: 2.28, densNote: "20℃, 청색 결정", sol: 32.0, solNote: "20℃, 물 100 g당 g", curve: null, note: "가열하면 결정수가 빠져 흰색 무수물이 됩니다." },
+    { id: "agno3", name: "질산 은", formula: "AgNO3", cat: "이온 화합물", density: 4.35, densNote: "20℃, 고체", sol: 216, solNote: "20℃, 물 100 g당 g", curve: null, note: "물에 매우 잘 녹습니다. 빛에 분해되기 쉽습니다." },
+    { id: "agcl", name: "염화 은", formula: "AgCl", cat: "이온 화합물", density: 5.56, densNote: "20℃, 고체", sol: 0.00019, solNote: "20℃, 거의 불용", curve: null, note: "침전 반응으로 생기는 흰색 앙금입니다." },
+    { id: "baso4", name: "황산 바륨", formula: "BaSO4", cat: "이온 화합물", density: 4.50, densNote: "20℃, 고체", sol: 0.00024, solNote: "20℃, 거의 불용", curve: null, note: "물에 거의 안 녹는 흰 앙금입니다." },
+    { id: "nh4cl", name: "염화 암모늄", formula: "NH4Cl", cat: "이온 화합물", density: 1.53, densNote: "20℃, 고체", sol: 37.2, solNote: "20℃, 물 100 g당 g", curve: [[0,29.4],[20,37.2],[40,45.8],[60,55.2],[80,65.6],[100,77.3]], note: "가열하면 승화하는 것처럼 분해·재결합합니다." },
+    { id: "sucrose", name: "설탕(수크로스)", formula: "C12H22O11", cat: "분자 화합물", density: 1.59, densNote: "20℃, 고체", sol: 203.9, solNote: "20℃, 물 100 g당 g", curve: [[0,179],[20,204],[40,238],[60,287],[80,362],[100,487]], note: "물에 매우 잘 녹습니다. 온도가 오르면 더 많이 녹습니다." },
+    { id: "glucose", name: "포도당", formula: "C6H12O6", cat: "분자 화합물", density: 1.54, densNote: "20℃, 고체", sol: 90, solNote: "20℃, 물 100 g당 g", curve: null, note: "단당류입니다. 물에 잘 녹습니다." },
+    { id: "ethanol", name: "에탄올", formula: "C2H5OH", cat: "분자 화합물", density: 0.789, densNote: "20℃, 액체", sol: "무제한(혼합)", solNote: "물과 어떤 비율로도 섞임", curve: null, note: "끓는점 78℃. 물과 증류로 나눕니다." },
+    { id: "methanol", name: "메탄올", formula: "CH3OH", cat: "분자 화합물", density: 0.792, densNote: "20℃, 액체", sol: "무제한(혼합)", solNote: "물과 완전히 섞임", curve: null, note: "유독합니다. 마시지 않습니다." },
+    { id: "acetone", name: "아세톤", formula: "CH3COCH3", cat: "분자 화합물", density: 0.784, densNote: "20℃, 액체", sol: "무제한(혼합)", solNote: "물과 섞임", curve: null, note: "volatile한 유기 용매입니다." },
+    { id: "acetic", name: "아세트산", formula: "CH3COOH", cat: "산·염기", density: 1.049, densNote: "20℃, 액체", sol: "무제한(혼합)", solNote: "물과 완전히 섞임", curve: null, note: "식초의 신맛 성분입니다." },
+    { id: "hcl", name: "염화 수소(염산의 용질)", formula: "HCl", cat: "산·염기", density: 1.49, densNote: "액체 염화 수소, −85℃ 근처", sol: 72, solNote: "20℃, 물 100 g당 g · 매우 잘 녹음", curve: null, note: "실험실 염산은 HCl 수용액입니다. 진한 염산(37%)의 밀도는 약 1.18 g/cm³." },
+    { id: "h2so4", name: "황산", formula: "H2SO4", cat: "산·염기", density: 1.83, densNote: "20℃, 98% 진한 황산", sol: "무제한(혼합)", solNote: "물과 섞임(발열)", curve: null, note: "물에 섞을 때는 반드시 산을 물에 천천히 넣습니다." },
+    { id: "hno3", name: "질산", formula: "HNO3", cat: "산·염기", density: 1.51, densNote: "20℃, 진한 질산", sol: "무제한(혼합)", solNote: "물과 섞임", curve: null, note: "강한 산화성 산입니다." },
+    { id: "nh3", name: "암모니아", formula: "NH3", cat: "분자 화합물", density: 0.696, densNote: "−33℃, 액체", sol: 52.6, solNote: "20℃, 물 100 g당 g · 매우 잘 녹음", curve: null, note: "물에 잘 녹아 암모니아수가 됩니다. 기체 밀도(0℃, 1기압)는 0.771 g/L." },
+    { id: "co2", name: "이산화 탄소", formula: "CO2", cat: "분자 화합물", density: 1.98, densNote: "0℃, 1기압 기체 g/L", sol: 0.169, solNote: "20℃, 물 100 g당 g", curve: null, note: "기체 밀도 단위는 g/L입니다. 탄산수에 녹아 있습니다." },
+    { id: "o2", name: "산소", formula: "O2", cat: "원소", density: 1.429, densNote: "0℃, 1기압 기체 g/L", sol: 0.0043, solNote: "20℃, 물 100 g당 g · 난용", curve: null, note: "물에 조금 녹아 수중 생물이 호흡합니다." },
+    { id: "n2", name: "질소", formula: "N2", cat: "원소", density: 1.251, densNote: "0℃, 1기압 기체 g/L", sol: 0.0019, solNote: "20℃, 물 100 g당 g · 난용", curve: null, note: "공기 부피의 약 78%입니다." },
+    { id: "fe", name: "철", formula: "Fe", cat: "원소", density: 7.87, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "자석으로 분리합니다. 녹(Fe2O3)과는 다릅니다." },
+    { id: "cu", name: "구리", formula: "Cu", cat: "원소", density: 8.96, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "전기가 잘 통하는 금속입니다." },
+    { id: "al", name: "알루미늄", formula: "Al", cat: "원소", density: 2.70, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "가벼워서 밀도가 철의 약 1/3입니다." },
+    { id: "zn", name: "아연", formula: "Zn", cat: "원소", density: 7.14, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "산과 반응해 수소를 발생시킵니다." },
+    { id: "mg", name: "마그네슘", formula: "Mg", cat: "원소", density: 1.74, densNote: "20℃, 고체", sol: 0, solNote: "물에 거의 안 녹음", curve: null, note: "가벼운 금속입니다. 뜨거운 물과 천천히 반응합니다." },
+    { id: "au", name: "금", formula: "Au", cat: "원소", density: 19.32, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "밀도가 매우 큽니다." },
+    { id: "ag", name: "은", formula: "Ag", cat: "원소", density: 10.49, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "전기 전도도가 큰 금속입니다." },
+    { id: "pb", name: "납", formula: "Pb", cat: "원소", density: 11.34, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "밀도가 커서 물속에 가라앉습니다." },
+    { id: "hg", name: "수은", formula: "Hg", cat: "원소", density: 13.53, densNote: "20℃, 액체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "실온에서 액체인 금속입니다. 증기는 유독합니다." },
+    { id: "i2", name: "아이오딘", formula: "I2", cat: "원소", density: 4.93, densNote: "20℃, 고체", sol: 0.029, solNote: "20℃, 물에 약간 녹음", curve: null, note: "승화합니다. 알코올·아이오딘화 칼륨 용액에는 잘 녹습니다." },
+    { id: "sio2", name: "이산화 규소(석영·모래)", formula: "SiO2", cat: "이온·그물 화합물", density: 2.65, densNote: "20℃, 석영", sol: 0, solNote: "물에 안 녹음", curve: null, note: "모래의 주성분. 거름으로 물과 나눕니다." },
+    { id: "fe2o3", name: "산화 철(III)(녹)", formula: "Fe2O3", cat: "이온 화합물", density: 5.24, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "철이 산소·물과 만나 생긴 녹입니다." },
+    { id: "cacoil", name: "식용유(트라이글리세라이드)", formula: "C3H5(OCOR)3", cat: "분자 화합물", density: 0.91, densNote: "20℃, 액체(대표값)", sol: 0, solNote: "물에 안 섞임", curve: null, note: "실제 식용유는 여러 지방산의 혼합물입니다. 밀도 약 0.91 g/cm³." },
+    { id: "ice", name: "얼음", formula: "H2O", cat: "분자 화합물", density: 0.917, densNote: "0℃, 고체", sol: "해당 없음", solNote: "고체 물", curve: null, note: "액체 물보다 밀도가 작아 물에 뜹니다." }
+  ];
+
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => [...document.querySelectorAll(sel)];
 
@@ -1291,12 +1340,205 @@
     });
   }
 
+  function formulaHtml(s) {
+    return String(s).replace(/(\d+)/g, "<sub>$1</sub>");
+  }
+
+  function fmtNum(n, d) {
+    if (typeof n !== "number" || Number.isNaN(n)) return String(n);
+    const x = Math.abs(n);
+    const digits = d ?? (x >= 100 ? 1 : x >= 10 ? 2 : x >= 1 ? 3 : 4);
+    return Number(n.toPrecision(digits > 4 ? 4 : digits + 1)).toString();
+  }
+
+  function interpolateSolubility(curve, t) {
+    if (!curve || !curve.length) return null;
+    if (t <= curve[0][0]) return curve[0][1];
+    const last = curve[curve.length - 1];
+    if (t >= last[0]) return last[1];
+    for (let i = 0; i < curve.length - 1; i++) {
+      const [t0, s0] = curve[i];
+      const [t1, s1] = curve[i + 1];
+      if (t >= t0 && t <= t1) return s0 + (s1 - s0) * ((t - t0) / (t1 - t0));
+    }
+    return null;
+  }
+
+  function solText(c, t) {
+    if (typeof c.sol !== "number") return c.sol;
+    const v = c.curve ? interpolateSolubility(c.curve, t ?? 20) : c.sol;
+    return v;
+  }
+
+  let chemCat = "전체";
+  let chemPick = null;
+
+  function chemList() {
+    const q = ($("#chem-q")?.value || "").trim().toLowerCase();
+    return COMPOUNDS.filter((c) => {
+      const catOk = chemCat === "전체" || c.cat === chemCat;
+      const qOk = !q || c.name.toLowerCase().includes(q) || c.formula.toLowerCase().includes(q) || c.cat.includes(q);
+      return catOk && qOk;
+    });
+  }
+
+  function renderChemCats() {
+    const cats = ["전체", ...new Set(COMPOUNDS.map((c) => c.cat))];
+    $("#chem-cats").innerHTML = cats.map((cat) => `
+      <button type="button" class="chip ${cat === chemCat ? "is-on" : ""}" data-cat="${cat}">${cat}</button>
+    `).join("");
+    $$("#chem-cats .chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        chemCat = btn.dataset.cat;
+        renderChemCats();
+        renderCompounds();
+      });
+    });
+  }
+
+  function fillRefSelects() {
+    const opts = COMPOUNDS.map((c) => `<option value="${c.id}">${c.name} (${c.formula})</option>`).join("");
+    $("#den-ref").innerHTML = `<option value="">비교 안 함</option>` + opts;
+    $("#sol-ref").innerHTML = `<option value="">비교 안 함</option>` + COMPOUNDS.filter((c) => typeof c.sol === "number").map((c) => `<option value="${c.id}">${c.name} (${c.formula})</option>`).join("");
+  }
+
+  function renderCompounds() {
+    const list = chemList();
+    $("#compound-grid").innerHTML = list.map((c) => `
+      <button type="button" class="compound-mini ${chemPick === c.id ? "is-on" : ""}" data-id="${c.id}">
+        <div class="f">${formulaHtml(c.formula)}</div>
+        <strong>${c.name}</strong>
+        <small>${typeof c.density === "number" ? `밀도 ${c.density}` : ""} · ${typeof c.sol === "number" ? `용해도 ${c.sol}` : c.sol}</small>
+      </button>
+    `).join("") || `<p class="empty-hint">찾는 물질이 없습니다.</p>`;
+    $$("#compound-grid .compound-mini").forEach((btn) => {
+      btn.addEventListener("click", () => showCompound(btn.dataset.id));
+    });
+  }
+
+  function showCompound(id) {
+    const c = COMPOUNDS.find((x) => x.id === id);
+    if (!c) return;
+    chemPick = id;
+    renderCompounds();
+    $("#den-ref").value = id;
+    if (typeof c.sol === "number") $("#sol-ref").value = id;
+    const solShow = typeof c.sol === "number" ? `${c.sol} g/100 g 물` : c.sol;
+    const densUnit = /기체 g\/L/.test(c.densNote) ? "g/L" : "g/cm³";
+    $("#compound-detail").innerHTML = `
+      <p class="kicker">${c.cat}</p>
+      <div class="formula-xl">${formulaHtml(c.formula)}</div>
+      <h3>${c.name}</h3>
+      <table class="prop-table">
+        <tr><th>화학식</th><td>${formulaHtml(c.formula)}</td></tr>
+        <tr><th>밀도 이론값</th><td><strong>${c.density} ${densUnit}</strong><br>${c.densNote}</td></tr>
+        <tr><th>용해도 이론값</th><td><strong>${solShow}</strong><br>${c.solNote}</td></tr>
+        ${c.curve ? `<tr><th>용해도 곡선</th><td>${c.curve.map(([t, s]) => `${t}℃ → ${s}`).join("<br>")}</td></tr>` : ""}
+      </table>
+      <p>${c.note}</p>
+      <button type="button" class="btn ghost" data-fill="${id}">이 값으로 계산기 채우기</button>
+    `;
+    $("#compound-detail").querySelector("[data-fill]")?.addEventListener("click", () => {
+      $("#den-mode").value = "density";
+      updateDenMode();
+      if (!/기체/.test(c.densNote)) {
+        $("#den-mass").value = String(c.density);
+        $("#den-vol").value = "1";
+      }
+      $("#sol-water").value = "100";
+      if (typeof c.sol === "number") $("#sol-solute").value = String(c.sol);
+      $("#sol-temp").value = "20";
+      $("#den-form").requestSubmit();
+      $("#sol-form").requestSubmit();
+    });
+  }
+
+  function updateDenMode() {
+    const mode = $("#den-mode").value;
+    $("#den-mass-wrap").hidden = mode === "mass";
+    $("#den-vol-wrap").hidden = mode === "volume";
+    $("#den-rho-wrap").hidden = mode === "density";
+  }
+
+  function runDensity(e) {
+    e.preventDefault();
+    const mode = $("#den-mode").value;
+    const m = Number($("#den-mass").value);
+    const v = Number($("#den-vol").value);
+    const r = Number($("#den-rho").value);
+    let out = "";
+    let value = NaN;
+    if (mode === "density") {
+      if (!(m > 0 && v > 0)) { $("#den-out").textContent = "질량과 부피를 0보다 크게 입력하세요."; return; }
+      value = m / v;
+      out = `밀도 ρ = ${m} ÷ ${v} = <strong>${fmtNum(value, 4)} g/cm³</strong>`;
+    } else if (mode === "mass") {
+      if (!(r > 0 && v > 0)) { $("#den-out").textContent = "밀도와 부피를 0보다 크게 입력하세요."; return; }
+      value = r * v;
+      out = `질량 m = ${r} × ${v} = <strong>${fmtNum(value, 4)} g</strong>`;
+    } else {
+      if (!(r > 0 && m > 0)) { $("#den-out").textContent = "밀도와 질량을 0보다 크게 입력하세요."; return; }
+      value = m / r;
+      out = `부피 V = ${m} ÷ ${r} = <strong>${fmtNum(value, 4)} cm³</strong>`;
+    }
+    const ref = COMPOUNDS.find((c) => c.id === $("#den-ref").value);
+    if (ref && mode === "density" && !/기체/.test(ref.densNote)) {
+      const err = Math.abs(value - ref.density) / ref.density * 100;
+      out += `<br>이론값 ${ref.name} ${ref.density} g/cm³ (${ref.densNote}) · 상대 오차 <strong>${fmtNum(err, 3)}%</strong>`;
+      if (value < ref.density) out += `<br>계산값이 이론값보다 작습니다. 부피가 크게 측정됐거나 빈 공간이 있었을 수 있습니다.`;
+      else if (value > ref.density) out += `<br>계산값이 이론값보다 큽니다. 질량이 크거나 부피가 작게 측정됐을 수 있습니다.`;
+    } else if (ref && mode === "density" && /기체/.test(ref.densNote)) {
+      out += `<br>참고: ${ref.name}의 기체 이론 밀도는 ${ref.density} g/L (${ref.densNote})이라 g/cm³ 계산과 단위가 다릅니다.`;
+    }
+    $("#den-out").innerHTML = out;
+  }
+
+  function runSolubility(e) {
+    e.preventDefault();
+    const water = Number($("#sol-water").value);
+    const solute = Number($("#sol-solute").value);
+    const temp = Number($("#sol-temp").value);
+    if (!(water > 0)) { $("#sol-out").textContent = "물의 질량을 0보다 크게 입력하세요."; return; }
+    if (!(solute >= 0)) { $("#sol-out").textContent = "용질 질량을 0 이상으로 입력하세요."; return; }
+    const sExp = solute / water * 100;
+    const percent = solute / (solute + water) * 100;
+    let out = `실험 용해도 S = ${solute} ÷ ${water} × 100 = <strong>${fmtNum(sExp, 4)} g/100 g 물</strong>`;
+    out += `<br>질량 퍼센트 = ${solute} ÷ (${solute} + ${water}) × 100 = <strong>${fmtNum(percent, 3)} %</strong>`;
+    const ref = COMPOUNDS.find((c) => c.id === $("#sol-ref").value);
+    if (ref && typeof ref.sol === "number") {
+      const sTh = ref.curve ? interpolateSolubility(ref.curve, Number.isFinite(temp) ? temp : 20) : ref.sol;
+      const maxSolute = sTh * water / 100;
+      const tLabel = Number.isFinite(temp) ? temp : 20;
+      out += `<br>${ref.name} ${tLabel}℃ 이론 용해도 <strong>${fmtNum(sTh, 4)} g/100 g</strong> (${ref.solNote})`;
+      out += `<br>이 물 양에서 최대로 녹는 용질 ≈ <strong>${fmtNum(maxSolute, 4)} g</strong>`;
+      if (solute > maxSolute + 1e-9) {
+        out += `<br>넣은 용질이 더 많아서 포화되고, 안 녹고 남는 양 ≈ <strong>${fmtNum(solute - maxSolute, 4)} g</strong>`;
+      } else if (Math.abs(solute - maxSolute) < 0.05) {
+        out += `<br>거의 포화 용액입니다.`;
+      } else {
+        out += `<br>아직 더 녹일 수 있는 양 ≈ <strong>${fmtNum(maxSolute - solute, 4)} g</strong> (불포화)`;
+      }
+    }
+    $("#sol-out").innerHTML = out;
+  }
+
+  function initChem() {
+    renderChemCats();
+    fillRefSelects();
+    renderCompounds();
+    $("#chem-q").addEventListener("input", renderCompounds);
+    $("#den-mode").addEventListener("change", updateDenMode);
+    $("#density-form").addEventListener("submit", runDensity);
+    $("#sol-form").addEventListener("submit", runSolubility);
+    updateDenMode();
+  }
+
   function bind() {
     $$(".tab").forEach((t) => t.addEventListener("click", () => showTab(t.dataset.tab)));
     $$("[data-goto]").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.goto)));
     window.addEventListener("hashchange", () => {
       const id = location.hash.replace("#", "");
-      if (["learn", "finder", "lab", "quiz"].includes(id)) showTab(id, false);
+      if (TABS.includes(id)) showTab(id, false);
     });
     $("#plan-btn").addEventListener("click", renderPlan);
     $("#clear-substances").addEventListener("click", () => {
@@ -1330,9 +1572,10 @@
   renderChips();
   renderPresets();
   renderQuiz();
+  initChem();
   bind();
   startLab("magnet", false);
   const initial = location.hash.replace("#", "");
-  if (["learn", "finder", "lab", "quiz"].includes(initial)) showTab(initial, false);
+  if (TABS.includes(initial)) showTab(initial, false);
   else showTab("learn", false);
 })();
