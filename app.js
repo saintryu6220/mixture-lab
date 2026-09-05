@@ -180,19 +180,19 @@
     { id: "kno3", name: "질산 칼륨", formula: "KNO3", cat: "이온 화합물", density: 2.11, densNote: "20℃, 고체", sol: 31.6, solNote: "20℃, 물 100 g당 g", curve: [[0,13.3],[20,31.6],[40,63.9],[60,110],[80,169],[100,246]], note: "온도에 따른 용해도 변화가 커서 재결정 실험에 자주 씁니다." },
     { id: "nano3", name: "질산 나트륨", formula: "NaNO3", cat: "이온 화합물", density: 2.26, densNote: "20℃, 고체", sol: 87.6, solNote: "20℃, 물 100 g당 g", curve: [[0,73],[20,88],[40,104],[60,124],[80,148],[100,180]], note: "물에 매우 잘 녹는 이온 화합물입니다." },
     { id: "naoh", name: "수산화 나트륨", formula: "NaOH", cat: "산·염기", density: 2.13, densNote: "20℃, 고체", sol: 109, solNote: "20℃, 물 100 g당 g", curve: [[0,42],[20,109],[40,129],[60,174],[80,313],[100,337]], note: "물에 녹일 때 열이 많이 납니다. 피부 보호가 필요합니다." },
-    { id: "koh", name: "수산화 칼륨", formula: "KOH", cat: "산·염기", density: 2.12, densNote: "20℃, 고체", sol: 112, solNote: "20℃, 물 100 g당 g", curve: null, note: "강한 염기입니다. 물에 잘 녹습니다." },
+    { id: "koh", name: "수산화 칼륨", formula: "KOH", cat: "산·염기", density: 2.12, densNote: "20℃, 고체", sol: 112, solNote: "20℃, 물 100 g당 g", curve: [[0,97],[10,103],[20,112],[30,126],[40,137],[60,154],[80,176],[100,178]], note: "강한 염기입니다. 물에 잘 녹습니다." },
     { id: "caco3", name: "탄산 칼슘", formula: "CaCO3", cat: "이온 화합물", density: 2.71, densNote: "20℃, 방해석", sol: 0.0013, solNote: "20℃, 물 100 g당 g · 거의 안 녹음", curve: null, note: "대리석·석회암의 주성분. 거름으로 물과 나눕니다." },
     { id: "cacl2", name: "염화 칼슘", formula: "CaCl2", cat: "이온 화합물", density: 2.15, densNote: "20℃, 무수물", sol: 74.5, solNote: "20℃, 물 100 g당 g", curve: [[0,60],[20,74.5],[40,93],[60,137],[80,147],[100,159]], note: "제습제·빙점 강하에 쓰입니다. 녹일 때 열이 납니다." },
     { id: "caoh2", name: "수산화 칼슘(소석회)", formula: "Ca(OH)2", cat: "산·염기", density: 2.21, densNote: "20℃, 고체", sol: 0.165, solNote: "20℃, 물 100 g당 g · 난용", curve: [[0,0.19],[20,0.17],[40,0.14],[60,0.12],[80,0.09],[100,0.07]], note: "온도가 오르면 오히려 덜 녹습니다(온도가 올라갈수록 용해도 감소)." },
     { id: "nahco3", name: "탄산수소 나트륨(베이킹소다)", formula: "NaHCO3", cat: "이온 화합물", density: 2.20, densNote: "20℃, 고체", sol: 9.6, solNote: "20℃, 물 100 g당 g", curve: [[0,6.9],[20,9.6],[40,12.7],[60,16.4]], note: "가열하면 이산화 탄소가 나옵니다." },
     { id: "cuso4", name: "황산 구리(II)", formula: "CuSO4", cat: "이온 화합물", density: 3.60, densNote: "무수물, 흰색", sol: 20.7, solNote: "20℃, 물 100 g당 g(무수물 기준)", curve: [[0,14.3],[20,20.7],[40,28.5],[60,40],[80,55],[100,75.4]], note: "오수화물은 푸른색 CuSO4·5H2O입니다." },
-    { id: "cuso45", name: "황산 구리(II) 오수화물", formula: "CuSO4·5H2O", cat: "이온 화합물", density: 2.28, densNote: "20℃, 청색 결정", sol: 32.0, solNote: "20℃, 물 100 g당 g", curve: null, note: "가열하면 결정수가 빠져 흰색 무수물이 됩니다." },
-    { id: "agno3", name: "질산 은", formula: "AgNO3", cat: "이온 화합물", density: 4.35, densNote: "20℃, 고체", sol: 216, solNote: "20℃, 물 100 g당 g", curve: null, note: "물에 매우 잘 녹습니다. 빛에 분해되기 쉽습니다." },
+    { id: "cuso45", name: "황산 구리(II) 오수화물", formula: "CuSO4·5H2O", cat: "이온 화합물", density: 2.28, densNote: "20℃, 청색 결정", sol: 32.0, solNote: "20℃, 물 100 g당 g", curve: [[0,23.1],[20,32.0],[40,44.6],[60,61.8],[80,83.8],[100,114]], note: "가열하면 결정수가 빠져 흰색 무수물이 됩니다." },
+    { id: "agno3", name: "질산 은", formula: "AgNO3", cat: "이온 화합물", density: 4.35, densNote: "20℃, 고체", sol: 216, solNote: "20℃, 물 100 g당 g", curve: [[0,122],[20,216],[40,311],[60,440],[80,585],[100,733]], note: "물에 매우 잘 녹습니다. 빛에 분해되기 쉽습니다." },
     { id: "agcl", name: "염화 은", formula: "AgCl", cat: "이온 화합물", density: 5.56, densNote: "20℃, 고체", sol: 0.00019, solNote: "20℃, 거의 불용", curve: null, note: "침전 반응으로 생기는 흰색 앙금입니다." },
     { id: "baso4", name: "황산 바륨", formula: "BaSO4", cat: "이온 화합물", density: 4.50, densNote: "20℃, 고체", sol: 0.00024, solNote: "20℃, 거의 불용", curve: null, note: "물에 거의 안 녹는 흰 앙금입니다." },
     { id: "nh4cl", name: "염화 암모늄", formula: "NH4Cl", cat: "이온 화합물", density: 1.53, densNote: "20℃, 고체", sol: 37.2, solNote: "20℃, 물 100 g당 g", curve: [[0,29.4],[20,37.2],[40,45.8],[60,55.2],[80,65.6],[100,77.3]], note: "가열하면 승화하는 것처럼 분해·재결합합니다." },
     { id: "sucrose", name: "설탕(수크로스)", formula: "C12H22O11", cat: "분자 화합물", density: 1.59, densNote: "20℃, 고체", sol: 203.9, solNote: "20℃, 물 100 g당 g", curve: [[0,179],[20,204],[40,238],[60,287],[80,362],[100,487]], note: "물에 매우 잘 녹습니다. 온도가 오르면 더 많이 녹습니다." },
-    { id: "glucose", name: "포도당", formula: "C6H12O6", cat: "분자 화합물", density: 1.54, densNote: "20℃, 고체", sol: 90, solNote: "20℃, 물 100 g당 g", curve: null, note: "단당류입니다. 물에 잘 녹습니다." },
+    { id: "glucose", name: "포도당", formula: "C6H12O6", cat: "분자 화합물", density: 1.54, densNote: "20℃, 고체", sol: 90, solNote: "20℃, 물 100 g당 g", curve: [[0,83],[20,90],[40,162],[60,258],[80,370],[100,451]], note: "단당류입니다. 물에 잘 녹고, 온도가 오르면 더 많이 녹습니다." },
     { id: "ethanol", name: "에탄올", formula: "C2H5OH", cat: "분자 화합물", density: 0.789, densNote: "20℃, 액체", sol: "무제한(혼합)", solNote: "물과 어떤 비율로도 섞임", curve: null, note: "끓는점 78℃. 물과 증류로 나눕니다." },
     { id: "methanol", name: "메탄올", formula: "CH3OH", cat: "분자 화합물", density: 0.792, densNote: "20℃, 액체", sol: "무제한(혼합)", solNote: "물과 완전히 섞임", curve: null, note: "유독합니다. 마시지 않습니다." },
     { id: "acetone", name: "아세톤", formula: "CH3COCH3", cat: "분자 화합물", density: 0.784, densNote: "20℃, 액체", sol: "무제한(혼합)", solNote: "물과 섞임", curve: null, note: "volatile한 유기 용매입니다." },
@@ -200,10 +200,10 @@
     { id: "hcl", name: "염화 수소(염산의 용질)", formula: "HCl", cat: "산·염기", density: 1.49, densNote: "액체 염화 수소, −85℃ 근처", sol: 72, solNote: "20℃, 물 100 g당 g · 매우 잘 녹음", curve: null, note: "실험실 염산은 HCl 수용액입니다. 진한 염산(37%)의 밀도는 약 1.18 g/cm³." },
     { id: "h2so4", name: "황산", formula: "H2SO4", cat: "산·염기", density: 1.83, densNote: "20℃, 98% 진한 황산", sol: "무제한(혼합)", solNote: "물과 섞임(발열)", curve: null, note: "물에 섞을 때는 반드시 산을 물에 천천히 넣습니다." },
     { id: "hno3", name: "질산", formula: "HNO3", cat: "산·염기", density: 1.51, densNote: "20℃, 진한 질산", sol: "무제한(혼합)", solNote: "물과 섞임", curve: null, note: "강한 산화성 산입니다." },
-    { id: "nh3", name: "암모니아", formula: "NH3", cat: "분자 화합물", density: 0.696, densNote: "−33℃, 액체", sol: 52.6, solNote: "20℃, 물 100 g당 g · 매우 잘 녹음", curve: null, note: "물에 잘 녹아 암모니아수가 됩니다. 기체 밀도(0℃, 1기압)는 0.771 g/L." },
-    { id: "co2", name: "이산화 탄소", formula: "CO2", cat: "분자 화합물", density: 1.98, densNote: "0℃, 1기압 기체 g/L", sol: 0.169, solNote: "20℃, 물 100 g당 g", curve: null, note: "기체 밀도 단위는 g/L입니다. 탄산수에 녹아 있습니다." },
-    { id: "o2", name: "산소", formula: "O2", cat: "원소", density: 1.429, densNote: "0℃, 1기압 기체 g/L", sol: 0.0043, solNote: "20℃, 물 100 g당 g · 난용", curve: null, note: "물에 조금 녹아 수중 생물이 호흡합니다." },
-    { id: "n2", name: "질소", formula: "N2", cat: "원소", density: 1.251, densNote: "0℃, 1기압 기체 g/L", sol: 0.0019, solNote: "20℃, 물 100 g당 g · 난용", curve: null, note: "공기 부피의 약 78%입니다." },
+    { id: "nh3", name: "암모니아", formula: "NH3", cat: "분자 화합물", density: 0.696, densNote: "−33℃, 액체", sol: 52.6, solNote: "20℃, 물 100 g당 g · 매우 잘 녹음", curve: [[0,89.5],[10,67.9],[20,52.6],[30,40.9],[40,30.7],[60,16.8],[80,7.4]], note: "기체는 온도가 오르면 물에 덜 녹습니다. 암모니아수가 됩니다." },
+    { id: "co2", name: "이산화 탄소", formula: "CO2", cat: "분자 화합물", density: 1.98, densNote: "0℃, 1기압 기체 g/L", sol: 0.169, solNote: "20℃, 물 100 g당 g", curve: [[0,0.335],[10,0.232],[20,0.169],[30,0.126],[40,0.097],[60,0.058]], note: "기체는 온도가 오르면 물에 덜 녹습니다. 따뜻한 탄산수가 더 잘 김이 빠지는 이유입니다." },
+    { id: "o2", name: "산소", formula: "O2", cat: "원소", density: 1.429, densNote: "0℃, 1기압 기체 g/L", sol: 0.0043, solNote: "20℃, 물 100 g당 g · 난용", curve: [[0,0.0069],[10,0.0054],[20,0.0043],[30,0.0036],[40,0.0031],[60,0.0023],[80,0.0014]], note: "기체는 온도가 오르면 물에 덜 녹습니다. 따뜻한 물보다 찬물에 산소가 더 많습니다." },
+    { id: "n2", name: "질소", formula: "N2", cat: "원소", density: 1.251, densNote: "0℃, 1기압 기체 g/L", sol: 0.0019, solNote: "20℃, 물 100 g당 g · 난용", curve: [[0,0.0029],[20,0.0019],[40,0.0014],[60,0.0010]], note: "기체는 온도가 오르면 물에 덜 녹습니다. 공기 부피의 약 78%입니다." },
     { id: "fe", name: "철", formula: "Fe", cat: "원소", density: 7.87, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "자석으로 분리합니다. 녹(Fe2O3)과는 다릅니다." },
     { id: "cu", name: "구리", formula: "Cu", cat: "원소", density: 8.96, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "전기가 잘 통하는 금속입니다." },
     { id: "al", name: "알루미늄", formula: "Al", cat: "원소", density: 2.70, densNote: "20℃, 고체", sol: 0, solNote: "물에 안 녹음", curve: null, note: "가벼워서 밀도가 철의 약 1/3입니다." },
@@ -1370,8 +1370,69 @@
     return v;
   }
 
-  let chemCat = "전체";
+  const SOL_TEMPS = [0, 20, 40, 60, 80, 100];
+  const SOL_COLORS = ["#2dd4bf", "#fbbf24", "#fb7185", "#38bdf8", "#c084fc", "#86efac", "#e07840", "#94a3b8", "#f472b6", "#22d3ee"];
+  const SOL_DEFAULT = ["nacl", "kno3", "kcl", "cuso4", "sucrose", "caoh2"];
+  let solPicked = new Set(SOL_DEFAULT);
+
+  function solAt(c, t) {
+    if (!c) return null;
+    if (c.curve && c.curve.length) {
+      const first = c.curve[0][0];
+      const last = c.curve[c.curve.length - 1][0];
+      if (t < first || t > last) return null;
+      return interpolateSolubility(c.curve, t);
+    }
+    if (typeof c.sol !== "number") return null;
+    return t === 20 ? c.sol : null;
+  }
+
+  function solTrend(curve) {
+    if (!curve || curve.length < 2) return { kind: "flat", text: "온도 변화 자료가 부족합니다." };
+    const a = curve[0][1];
+    const b = curve[curve.length - 1][1];
+    if (b > a * 1.12) return { kind: "up", text: "온도가 오르면 용해도가 커집니다." };
+    if (b < a * 0.88) return { kind: "down", text: "온도가 오르면 용해도가 작아집니다." };
+    return { kind: "flat", text: "온도가 올라도 용해도가 거의 변하지 않습니다." };
+  }
+
+  function solChartSvg(series, markT) {
+    const W = 640, H = 300;
+    const pad = { l: 52, r: 36, t: 18, b: 40 };
+    const pts = series.flatMap((s) => s.curve);
+    if (!pts.length) return "<p class='empty-hint'>곡선을 그릴 물질이 없습니다.</p>";
+    const tMin = 0, tMax = 100;
+    const sMax = Math.max(1, ...pts.map((p) => p[1])) * 1.1;
+    const x = (t) => pad.l + (t - tMin) / (tMax - tMin) * (W - pad.l - pad.r);
+    const y = (s) => pad.t + (1 - s / sMax) * (H - pad.t - pad.b);
+    const grid = [0, 20, 40, 60, 80, 100].map((t) => {
+      const xx = x(t);
+      return `<line x1="${xx}" y1="${pad.t}" x2="${xx}" y2="${H - pad.b}" stroke="rgba(243,236,227,.08)"/>
+        <text x="${xx}" y="${H - 16}" text-anchor="middle" fill="#b7aaa0" font-size="11">${t}℃</text>`;
+    }).join("");
+    const yTicks = 4;
+    const yGrid = Array.from({ length: yTicks + 1 }, (_, i) => {
+      const val = sMax * (1 - i / yTicks);
+      const yy = pad.t + (H - pad.t - pad.b) * (i / yTicks);
+      return `<line x1="${pad.l}" y1="${yy}" x2="${W - pad.r}" y2="${yy}" stroke="rgba(243,236,227,.08)"/>
+        <text x="${pad.l - 8}" y="${yy + 4}" text-anchor="end" fill="#b7aaa0" font-size="11">${val >= 10 ? val.toFixed(0) : val.toFixed(2)}</text>`;
+    }).join("");
+    const lines = series.map((s) => {
+      const d = s.curve.map((p, i) => `${i ? "L" : "M"}${x(p[0]).toFixed(1)},${y(p[1]).toFixed(1)}`).join(" ");
+      const dots = s.curve.map((p) => `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="3.2" fill="${s.color}"/>`).join("");
+      return `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
+    }).join("");
+    const mark = Number.isFinite(markT) ? `<line x1="${x(markT)}" y1="${pad.t}" x2="${x(markT)}" y2="${H - pad.b}" stroke="#fbbf24" stroke-dasharray="4 4" opacity=".85"/>` : "";
+    const legend = series.map((s) => `<span><i class="dot" style="background:${s.color}"></i> ${s.name}</span>`).join("");
+    return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="온도에 따른 용해도 곡선">
+      ${yGrid}${grid}${mark}${lines}
+      <text x="${W / 2}" y="${H - 4}" text-anchor="middle" fill="#b7aaa0" font-size="12">온도 (℃)</text>
+      <text x="14" y="${H / 2}" fill="#b7aaa0" font-size="12" transform="rotate(-90 14 ${H / 2})">용해도 (g / 100 g 물)</text>
+    </svg>
+    <p class="sol-legend-plain">${legend}</p>`;
+  }
   let chemPick = null;
+  let chemCat = "전체";
 
   function chemList() {
     const q = ($("#chem-q")?.value || "").trim().toLowerCase();
@@ -1394,6 +1455,49 @@
         renderCompounds();
       });
     });
+  }
+
+  function colorFor(id, i) {
+    const idx = COMPOUNDS.findIndex((c) => c.id === id);
+    return SOL_COLORS[(idx >= 0 ? idx : i) % SOL_COLORS.length];
+  }
+
+  function solTableHtml(list) {
+    const rows = list.map((c) => {
+      const cells = SOL_TEMPS.map((t) => {
+        const v = solAt(c, t);
+        return `<td>${v == null ? "—" : (v >= 10 ? v.toFixed(1) : v >= 1 ? v.toFixed(2) : v.toFixed(4))}</td>`;
+      }).join("");
+      return `<tr><td>${c.name}<br><small>${formulaHtml(c.formula)}</small></td>${cells}</tr>`;
+    }).join("");
+    return `<table class="sol-grid">
+      <thead><tr><th>물질</th>${SOL_TEMPS.map((t) => `<th>${t}℃</th>`).join("")}</tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p class="calc-hint">단위: g / 물 100 g. — 는 그 온도의 자료가 없는 값입니다.</p>`;
+  }
+
+  function renderSolCompare() {
+    const curved = COMPOUNDS.filter((c) => c.curve && c.curve.length > 1);
+    $("#sol-picks").innerHTML = curved.map((c, i) => `
+      <label>
+        <input type="checkbox" data-id="${c.id}" ${solPicked.has(c.id) ? "checked" : ""} />
+        <i class="dot" style="background:${colorFor(c.id, i)}"></i>
+        ${c.name}
+      </label>
+    `).join("");
+    $$("#sol-picks input").forEach((inp) => {
+      inp.addEventListener("change", () => {
+        if (inp.checked) solPicked.add(inp.dataset.id);
+        else solPicked.delete(inp.dataset.id);
+        renderSolCompare();
+      });
+    });
+    const series = curved.filter((c) => solPicked.has(c.id)).map((c, i) => ({
+      name: c.name, color: colorFor(c.id, i), curve: c.curve
+    }));
+    $("#sol-compare-chart").innerHTML = solChartSvg(series);
+    $("#sol-compare-table").innerHTML = solTableHtml(series.length ? curved.filter((c) => solPicked.has(c.id)) : curved.slice(0, 6));
   }
 
   function fillRefSelects() {
@@ -1423,8 +1527,11 @@
     renderCompounds();
     $("#den-ref").value = id;
     if (typeof c.sol === "number") $("#sol-ref").value = id;
-    const solShow = typeof c.sol === "number" ? `${c.sol} g/100 g 물` : c.sol;
+    const solShow = typeof c.sol === "number" ? `${c.sol} g/100 g 물 (20℃)` : c.sol;
     const densUnit = /기체 g\/L/.test(c.densNote) ? "g/L" : "g/cm³";
+    const trend = solTrend(c.curve);
+    const chart = c.curve ? solChartSvg([{ name: c.name, color: colorFor(c.id, 0), curve: c.curve }], 20) : "";
+    const table = c.curve ? solTableHtml([c]) : "";
     $("#compound-detail").innerHTML = `
       <p class="kicker">${c.cat}</p>
       <div class="formula-xl">${formulaHtml(c.formula)}</div>
@@ -1433,11 +1540,18 @@
         <tr><th>화학식</th><td>${formulaHtml(c.formula)}</td></tr>
         <tr><th>밀도 이론값</th><td><strong>${c.density} ${densUnit}</strong><br>${c.densNote}</td></tr>
         <tr><th>용해도 이론값</th><td><strong>${solShow}</strong><br>${c.solNote}</td></tr>
-        ${c.curve ? `<tr><th>용해도 곡선</th><td>${c.curve.map(([t, s]) => `${t}℃ → ${s}`).join("<br>")}</td></tr>` : ""}
       </table>
+      ${c.curve ? `<p class="sol-trend ${trend.kind}">${trend.text}</p>
+        <h4>온도에 따른 용해도</h4>
+        <div class="sol-chart-wrap">${chart}</div>
+        ${table}` : (typeof c.sol === "number" ? "<p class='calc-hint'>이 물질은 20℃ 값만 있습니다. 온도-용해도 곡선 자료는 아직 없습니다.</p>" : "")}
       <p>${c.note}</p>
       <button type="button" class="btn ghost" data-fill="${id}">이 값으로 계산기 채우기</button>
     `;
+    if (c.curve) {
+      solPicked.add(id);
+      renderSolCompare();
+    }
     $("#compound-detail").querySelector("[data-fill]")?.addEventListener("click", () => {
       $("#den-mode").value = "density";
       updateDenMode();
@@ -1526,6 +1640,7 @@
     renderChemCats();
     fillRefSelects();
     renderCompounds();
+    renderSolCompare();
     $("#chem-q").addEventListener("input", renderCompounds);
     $("#den-mode").addEventListener("change", updateDenMode);
     $("#density-form").addEventListener("submit", runDensity);
