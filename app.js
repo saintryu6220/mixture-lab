@@ -1663,9 +1663,45 @@
     actinide: { label: "악티늄족", color: "#fda4af" },
     unknown: { label: "성질 미확정", color: "#94a3b8" }
   };
+  const FAV_KEY = "science-lab-fav-elements";
+  const FAV_PRESET = [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 26, 29, 30, 47, 53, 79];
   const ELEMENTS = window.PERIODIC_ELEMENTS || [];
   let elPick = 26;
   let elCatFilter = "전체";
+  let favOnly = false;
+  let hideNames = false;
+  let favs = loadFavs();
+
+  function loadFavs() {
+    try {
+      const raw = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+      return new Set((Array.isArray(raw) ? raw : []).map(Number).filter((z) => z > 0));
+    } catch {
+      return new Set();
+    }
+  }
+
+  function saveFavs() {
+    try {
+      localStorage.setItem(FAV_KEY, JSON.stringify([...favs].sort((a, b) => a - b)));
+    } catch { /* ignore private mode */ }
+  }
+
+  function isFav(z) {
+    return favs.has(Number(z));
+  }
+
+  function toggleFav(z, force) {
+    z = Number(z);
+    if (!z) return;
+    const on = force == null ? !isFav(z) : !!force;
+    if (on) favs.add(z);
+    else favs.delete(z);
+    saveFavs();
+    renderFavTools();
+    renderPtable();
+    if (elPick === z) showElement(z);
+  }
 
   function elMatches(el, q) {
     if (!q) return true;
@@ -1676,8 +1712,10 @@
     const meta = EL_CATS[el.cat] || EL_CATS.unknown;
     const q = ($("#pt-q")?.value || "").trim().toLowerCase();
     const catOk = elCatFilter === "전체" || el.cat === elCatFilter;
-    const dim = !(elMatches(el, q) && catOk);
-    return `<button type="button" class="el-cell cat-${el.cat} ${elPick === el.z ? "is-on" : ""} ${dim ? "is-dim" : ""}" data-z="${el.z}" style="--el:${meta.color}" title="${el.n} (${el.s})">
+    const favOk = !favOnly || isFav(el.z);
+    const dim = !(elMatches(el, q) && catOk && favOk);
+    return `<button type="button" class="el-cell cat-${el.cat} ${elPick === el.z ? "is-on" : ""} ${isFav(el.z) ? "is-fav" : ""} ${hideNames ? "is-hidden-name" : ""} ${dim ? "is-dim" : ""}" data-z="${el.z}" style="--el:${meta.color}" title="${hideNames ? el.s : `${el.n} (${el.s})`}">
+      <span class="el-star" data-star="${el.z}" title="즐겨찾기">${isFav(el.z) ? "★" : "☆"}</span>
       <span class="z">${el.z}</span>
       <strong>${el.s}</strong>
       <em>${el.n}</em>
@@ -1723,6 +1761,54 @@
     const actRow = `<span class="pt-label">**</span>${fPad}${act.map(elCellHtml).join("")}${fEnd}`;
     $("#ptable").innerHTML = `${groups.join("")}${rows.join("")}<div class="pt-gap"></div>${lanRow}${actRow}`;
     $$("#ptable [data-z]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const star = e.target.closest("[data-star]");
+        if (star) {
+          e.preventDefault();
+          toggleFav(star.dataset.star);
+          return;
+        }
+        showElement(Number(btn.dataset.z));
+      });
+    });
+  }
+
+  function renderFavTools() {
+    const n = favs.size;
+    const count = $("#pt-fav-count");
+    if (count) count.textContent = `즐겨찾기 ${n}개`;
+    const onlyBtn = $("#pt-fav-only");
+    if (onlyBtn) {
+      onlyBtn.classList.toggle("is-on", favOnly);
+      onlyBtn.textContent = favOnly ? "★ 즐겨찾기만 보는 중" : "★ 즐겨찾기만 보기";
+    }
+    const hideBtn = $("#pt-hide-names");
+    if (hideBtn) {
+      hideBtn.classList.toggle("is-on", hideNames);
+      hideBtn.textContent = hideNames ? "이름 보이기" : "이름 가리기";
+    }
+    renderFavCards();
+  }
+
+  function renderFavCards() {
+    const box = $("#fav-cards");
+    if (!box) return;
+    const list = ELEMENTS.filter((el) => isFav(el.z));
+    if (!list.length) {
+      box.hidden = true;
+      box.innerHTML = "";
+      return;
+    }
+    box.hidden = false;
+    box.innerHTML = list.map((el) => {
+      const meta = EL_CATS[el.cat] || EL_CATS.unknown;
+      return `<button type="button" class="fav-card ${elPick === el.z ? "is-on" : ""} ${hideNames ? "is-hidden-name" : ""}" data-z="${el.z}" style="border-color:${elPick === el.z ? meta.color : ""}">
+        <span class="z">${el.z}</span>
+        <strong style="color:${meta.color}">${el.s}</strong>
+        <em>${el.n}</em>
+      </button>`;
+    }).join("");
+    $$("#fav-cards [data-z]").forEach((btn) => {
       btn.addEventListener("click", () => showElement(Number(btn.dataset.z)));
     });
   }
@@ -1776,12 +1862,16 @@
     }
     elPick = z;
     renderPtable();
+    renderFavCards();
     const meta = EL_CATS[el.cat] || EL_CATS.unknown;
     $("#el-detail").innerHTML = `
       <p class="kicker">원자 번호 ${el.z}</p>
       <div class="el-symbol" style="color:${meta.color}">${el.s}</div>
       <div class="el-name">${el.n}</div>
       <span class="el-cat-pill" style="--el:${meta.color}">${meta.label}</span>
+      <button type="button" class="btn ${isFav(el.z) ? "primary" : "ghost"} el-fav-btn" data-fav="${el.z}">
+        ${isFav(el.z) ? "★ 즐겨찾기 해제" : "☆ 즐겨찾기에 넣기"}
+      </button>
       <table class="prop-table">
         <tr><th>원자량</th><td>${el.mass}</td></tr>
         <tr><th>주기 · 족</th><td>${el.p}주기 · ${el.g}족</td></tr>
@@ -1793,6 +1883,9 @@
       <p>${el.trait}</p>
       ${relatedCompounds(el)}
     `;
+    $$("#el-detail [data-fav]").forEach((btn) => {
+      btn.addEventListener("click", () => toggleFav(btn.dataset.fav));
+    });
     $$("#el-detail [data-goto-chem]").forEach((btn) => {
       btn.addEventListener("click", () => {
         showTab("chem");
@@ -1804,9 +1897,36 @@
   function initPeriodic() {
     if (!$("#ptable")) return;
     renderPtLegend();
+    renderFavTools();
     renderPtable();
     showElement(elPick);
     $("#pt-q")?.addEventListener("input", renderPtable);
+    $("#pt-fav-only")?.addEventListener("click", () => {
+      favOnly = !favOnly;
+      renderFavTools();
+      renderPtable();
+    });
+    $("#pt-hide-names")?.addEventListener("click", () => {
+      hideNames = !hideNames;
+      renderFavTools();
+      renderPtable();
+    });
+    $("#pt-fav-preset")?.addEventListener("click", () => {
+      FAV_PRESET.forEach((z) => favs.add(z));
+      saveFavs();
+      favOnly = true;
+      renderFavTools();
+      renderPtable();
+      showElement(elPick);
+    });
+    $("#pt-fav-clear")?.addEventListener("click", () => {
+      favs.clear();
+      saveFavs();
+      favOnly = false;
+      renderFavTools();
+      renderPtable();
+      showElement(elPick);
+    });
   }
 
   function initChem() {
