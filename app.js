@@ -1663,10 +1663,255 @@
     actinide: { label: "악티늄족", color: "#fda4af" },
     unknown: { label: "성질 미확정", color: "#94a3b8" }
   };
+  const GROUPS = {
+    1: {
+      name: "알칼리 금속",
+      valence: "원자가 전자 1개",
+      ion: "보통 +1 이온",
+      color: "#fb7185",
+      summary: "가장 왼쪽 세로줄입니다. 수소를 빼면 모두 무른 금속이고, 물에 닿으면 세게 반응합니다.",
+      props: [
+        "원자가 전자가 1개라 전자를 쉽게 잃어 +1 이온이 됩니다.",
+        "반응성이 매우 커서 공기·물과 바로 반응합니다. 석유 속에 보관합니다.",
+        "불꽃 반응 색깔이 뚜렷합니다. 나트륨은 노랑, 칼륨은 보라에 가깝습니다.",
+        "아래로 갈수록 원자 크기가 커지고 반응성이 더 커집니다."
+      ],
+      note: "수소(H)도 1족이지만 비금속입니다. 리튬·나트륨·칼륨이 대표적인 알칼리 금속입니다."
+    },
+    2: {
+      name: "알칼리 토금속",
+      valence: "원자가 전자 2개",
+      ion: "보통 +2 이온",
+      color: "#fdba74",
+      summary: "1족 바로 오른쪽입니다. 단단한 금속이고, 화합물이 암석·뼈·이빨에 많습니다.",
+      props: [
+        "원자가 전자 2개를 잃어 +2 이온이 됩니다.",
+        "1족보다는 반응이 약하지만, 마그네슘은 불이 잘 붙습니다.",
+        "칼슘은 뼈와 석회암(CaCO₃), 마그네슘은 엽록소에 들어 있습니다.",
+        "아래로 갈수록 반응성이 커집니다."
+      ],
+      note: "베릴륨·마그네슘·칼슘·스트론튬·바륨·라듐이 이 족입니다."
+    },
+    3: {
+      name: "3족 · 전이 금속",
+      valence: "d-블록이 시작되는 자리",
+      ion: "여러 가지 전하",
+      color: "#7dd3fc",
+      summary: "전이 금속의 첫 세로줄입니다. 스칸듐·이트륨이 대표이고, 아래는 란타넘족·악티늄족과 이어집니다.",
+      props: [
+        "전형적인 전이 금속처럼 여러 가지 이온 전하를 가질 수 있습니다.",
+        "합금·특수 재료에 조금 섞어 씁니다.",
+        "주기율표 아래쪽 57–71번, 89–103번은 이 자리와 연결된 f-블록입니다."
+      ],
+      note: "중학교에서는 ‘3~12족은 전이 금속’으로 묶어 이해하면 됩니다."
+    },
+    4: {
+      name: "4족 · 전이 금속",
+      valence: "전이 금속",
+      ion: "여러 가지 전하",
+      color: "#7dd3fc",
+      summary: "타이타늄이 있는 세로줄입니다. 가볍고 단단하며 잘 변하지 않는 금속이 많습니다.",
+      props: [
+        "타이타늄은 인공 관절·비행기처럼 가볍고 강한 재료에 씁니다.",
+        "녹는점이 높고 부식에 강한 편입니다.",
+        "여러 가지 이온 전하를 가질 수 있습니다."
+      ],
+      note: "타이타늄(Ti), 지르코늄(Zr), 하프늄(Hf)이 대표입니다."
+    },
+    5: {
+      name: "5족 · 전이 금속",
+      valence: "전이 금속",
+      ion: "여러 가지 전하",
+      color: "#7dd3fc",
+      summary: "바나듐·나이오븀·탄탈럼이 있는 세로줄입니다. 강철을 더 질기게 만드는 데 쓰입니다.",
+      props: [
+        "공구·스프링처럼 질긴 합금에 들어갑니다.",
+        "녹는점이 높고 촉매로도 쓰입니다.",
+        "여러 가지 색깔의 화합물을 만듭니다."
+      ],
+      note: "바나듐(V)을 강철에 넣으면 잘 부러지지 않습니다."
+    },
+    6: {
+      name: "6족 · 전이 금속",
+      valence: "전이 금속",
+      ion: "여러 가지 전하",
+      color: "#7dd3fc",
+      summary: "크로뮴과 텅스텐이 있는 세로줄입니다. 광택·단단함·높은 녹는점이 특징입니다.",
+      props: [
+        "크로뮴은 스테인리스강과 도금에 쓰여 녹을 막습니다.",
+        "텅스텐은 녹는점이 매우 높아 전구 필라멘트에 쓰였습니다.",
+        "화합물의 색깔이 다양합니다."
+      ],
+      note: "크로뮴(Cr), 몰리브데넘(Mo), 텅스텐(W)이 대표입니다."
+    },
+    7: {
+      name: "7족 · 전이 금속",
+      valence: "전이 금속",
+      ion: "여러 가지 전하",
+      color: "#7dd3fc",
+      summary: "망가니즈가 있는 세로줄입니다. 강철을 단단하게 하고, 건전지에도 쓰입니다.",
+      props: [
+        "망가니즈는 철과 섞어 강철을 단단하게 만듭니다.",
+        "여러 가지 산화수를 가져 화합물 색깔이 다양합니다.",
+        "아래쪽 테크네튬은 방사성 원소입니다."
+      ],
+      note: "망가니즈(Mn)가 가장 흔히 만납니다."
+    },
+    8: {
+      name: "8족 · 전이 금속",
+      valence: "전이 금속",
+      ion: "여러 가지 전하",
+      color: "#7dd3fc",
+      summary: "철이 있는 세로줄입니다. 자석에 붙는 금속이 여기부터 이어집니다.",
+      props: [
+        "철은 가장 많이 쓰는 금속이고, 자석에 붙습니다.",
+        "산소·물과 만나 녹(산화 철)이 생깁니다.",
+        "혈액의 헤모글로빈에도 철이 들어 있습니다."
+      ],
+      note: "철(Fe), 루테늄(Ru), 오스뮴(Os)이 이 족입니다."
+    },
+    9: {
+      name: "9족 · 전이 금속",
+      valence: "전이 금속",
+      ion: "여러 가지 전하",
+      color: "#7dd3fc",
+      summary: "코발트가 있는 세로줄입니다. 자석 재료와 파란색 화합물로 유명합니다.",
+      props: [
+        "코발트는 자석과 리튬 이온 배터리에 쓰입니다.",
+        "화합물이 푸른색을 띠는 경우가 많습니다.",
+        "철·니켈과 함께 자성 금속으로 묶입니다."
+      ],
+      note: "코발트(Co), 로듐(Rh), 이리듐(Ir)이 이 족입니다."
+    },
+    10: {
+      name: "10족 · 전이 금속",
+      valence: "전이 금속",
+      ion: "여러 가지 전하",
+      color: "#7dd3fc",
+      summary: "니켈과 백금이 있는 세로줄입니다. 잘 변하지 않고 촉매로 자주 씁니다.",
+      props: [
+        "니켈은 동전·스테인리스강에 들어 있습니다.",
+        "백금은 잘 변하지 않는 귀금속이고, 자동차 촉매에 쓰입니다.",
+        "수소와 잘 상호작용하는 촉매가 많습니다."
+      ],
+      note: "니켈(Ni), 팔라듐(Pd), 백금(Pt)이 대표입니다."
+    },
+    11: {
+      name: "11족 · 구리족",
+      valence: "전이 금속",
+      ion: "보통 +1, +2",
+      color: "#7dd3fc",
+      summary: "구리·은·금이 있는 세로줄입니다. 전기가 잘 통하고 장신구·화폐에 쓰입니다.",
+      props: [
+        "전기와 열을 아주 잘 통합니다. 은이 가장 잘 통합니다.",
+        "잘 늘어나고 얇게 펼 수 있습니다.",
+        "금은 거의 녹슬지 않고, 구리는 공기 중에서 천천히 색이 변합니다."
+      ],
+      note: "구리(Cu), 은(Ag), 금(Au)을 ‘화폐 금속’이라고도 합니다."
+    },
+    12: {
+      name: "12족 · 아연족",
+      valence: "원자가 전자처럼 보이는 2개",
+      ion: "보통 +2 (수은은 +1도)",
+      color: "#7dd3fc",
+      summary: "아연·카드뮴·수은이 있는 세로줄입니다. 전이 금속 자리이지만 성질이 조금 다릅니다.",
+      props: [
+        "아연은 철에 입혀 녹을 막습니다(도금).",
+        "수은은 실온에서 액체인 금속입니다. 증기는 유독합니다.",
+        "카드뮴 화합물은 유독해서 주의가 필요합니다."
+      ],
+      note: "아연(Zn)은 산과 반응해 수소를 발생시킵니다."
+    },
+    13: {
+      name: "붕소족",
+      valence: "원자가 전자 3개",
+      ion: "보통 +3",
+      color: "#c4b5fd",
+      summary: "붕소와 알루미늄이 있는 세로줄입니다. 위에서 아래로 비금속에서 금속으로 바뀝니다.",
+      props: [
+        "원자가 전자가 3개입니다.",
+        "붕소는 준금속, 알루미늄부터는 금속입니다.",
+        "알루미늄은 가볍고 표면에 산화막이 생겨 잘 변하지 않습니다.",
+        "갈륨은 손바닥 온도 근처에서 녹습니다."
+      ],
+      note: "캔·창문 틀의 알루미늄이 가장 친숙한 13족 원소입니다."
+    },
+    14: {
+      name: "탄소족",
+      valence: "원자가 전자 4개",
+      ion: "공유 결합을 잘 함",
+      color: "#86efac",
+      summary: "탄소와 규소가 있는 세로줄입니다. 생명과 반도체의 핵심입니다.",
+      props: [
+        "원자가 전자가 4개라 공유 결합을 네 개까지 만들 수 있습니다.",
+        "탄소는 생명체의 기본 원소이고, 다이아몬드·흑연처럼 모습이 다양합니다.",
+        "규소는 모래(SiO₂)와 컴퓨터 칩의 재료입니다.",
+        "아래로 갈수록 금속성이 커져 주석·납은 금속입니다."
+      ],
+      note: "탄소(C) → 규소(Si) → 저마늄(Ge) → 주석(Sn) → 납(Pb) 순입니다."
+    },
+    15: {
+      name: "질소족",
+      valence: "원자가 전자 5개",
+      ion: "−3 또는 여러 산화수",
+      color: "#86efac",
+      summary: "질소와 인이 있는 세로줄입니다. 공기·비료·DNA와 관련이 큽니다.",
+      props: [
+        "원자가 전자가 5개입니다. 전자 3개를 더 얻어 −3이 되기도 합니다.",
+        "질소는 공기 부피의 약 78%이고 잘 반응하지 않습니다.",
+        "인은 뼈와 DNA에 들어 있습니다.",
+        "아래로 갈수록 금속성이 커집니다. 비스무트는 금속입니다."
+      ],
+      note: "질소(N), 인(P), 비소(As), 안티모니(Sb), 비스무트(Bi)가 이 족입니다."
+    },
+    16: {
+      name: "산소족",
+      valence: "원자가 전자 6개",
+      ion: "보통 −2",
+      color: "#86efac",
+      summary: "산소와 황이 있는 세로줄입니다. 호흡·연소·화산과 관련이 있습니다.",
+      props: [
+        "원자가 전자가 6개라 전자 2개를 얻어 −2 이온이 되기 쉽습니다.",
+        "산소는 호흡과 연소에 꼭 필요하고, 공기 부피의 약 21%입니다.",
+        "황은 노란 고체이고 화산·온천에서 보입니다.",
+        "아래로 갈수록 비금속에서 준금속·금속 쪽으로 바뀝니다."
+      ],
+      note: "산소(O), 황(S), 셀레늄(Se), 텔루륨(Te), 폴로늄(Po)이 이 족입니다."
+    },
+    17: {
+      name: "할로젠",
+      valence: "원자가 전자 7개",
+      ion: "보통 −1 (할로젠화물)",
+      color: "#fde047",
+      summary: "플루오린부터 아이오딘까지, 반응성이 큰 비금속 세로줄입니다. 소금의 염소가 여기 있습니다.",
+      props: [
+        "원자가 전자가 7개라 전자 1개만 더 얻으면 안정됩니다. −1 이온이 됩니다.",
+        "반응성이 커서 금속과 잘 결합합니다. 나트륨+염소 → 소금(NaCl).",
+        "위로 갈수록(플루오린 쪽) 반응성이 더 큽니다.",
+        "실온에서 플루오린·염소는 기체, 브로민은 액체, 아이오딘은 고체입니다."
+      ],
+      note: "할로젠은 ‘염을 만드는 원소’라는 뜻입니다. 소독·치약·사진에도 쓰입니다."
+    },
+    18: {
+      name: "비활성 기체",
+      valence: "전자 껍질이 가득 참",
+      ion: "거의 이온이 되지 않음",
+      color: "#67e8f9",
+      summary: "가장 오른쪽 세로줄입니다. 거의 반응하지 않아 ‘비활성’이라고 부릅니다.",
+      props: [
+        "가장 바깥 전자 껍질이 가득 차 안정합니다.",
+        "화합물이 거의 없고, 혼자 원자 상태로 존재합니다.",
+        "헬륨은 풍선, 네온은 간판, 아르곤은 전구·용접에 씁니다.",
+        "아래로 갈수록 원자량이 커지고 끓는점이 높아집니다."
+      ],
+      note: "헬륨(He), 네온(Ne), 아르곤(Ar), 크립톤(Kr), 제논(Xe), 라돈(Rn)이 대표입니다. 라돈은 방사성입니다."
+    }
+  };
   const FAV_KEY = "science-lab-fav-elements";
   const FAV_PRESET = [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 26, 29, 30, 47, 53, 79];
   const ELEMENTS = window.PERIODIC_ELEMENTS || [];
   let elPick = 26;
+  let groupPick = null;
   let elCatFilter = "전체";
   let favOnly = false;
   let hideNames = false;
@@ -1708,13 +1953,25 @@
     return String(el.z) === q || el.s.toLowerCase() === q || el.n.toLowerCase().includes(q);
   }
 
+  function mainGroup(el) {
+    if (!el) return null;
+    if (el.z >= 57 && el.z <= 71) return null;
+    if (el.z >= 89 && el.z <= 103) return null;
+    return el.g;
+  }
+
+  function groupMembers(g) {
+    return ELEMENTS.filter((el) => mainGroup(el) === g);
+  }
+
   function elCellHtml(el) {
     const meta = EL_CATS[el.cat] || EL_CATS.unknown;
     const q = ($("#pt-q")?.value || "").trim().toLowerCase();
     const catOk = elCatFilter === "전체" || el.cat === elCatFilter;
     const favOk = !favOnly || isFav(el.z);
-    const dim = !(elMatches(el, q) && catOk && favOk);
-    return `<button type="button" class="el-cell cat-${el.cat} ${elPick === el.z ? "is-on" : ""} ${isFav(el.z) ? "is-fav" : ""} ${hideNames ? "is-hidden-name" : ""} ${dim ? "is-dim" : ""}" data-z="${el.z}" style="--el:${meta.color}" title="${hideNames ? el.s : `${el.n} (${el.s})`}">
+    const groupOk = groupPick == null || mainGroup(el) === groupPick;
+    const dim = !(elMatches(el, q) && catOk && favOk && groupOk);
+    return `<button type="button" class="el-cell cat-${el.cat} ${elPick === el.z ? "is-on" : ""} ${isFav(el.z) ? "is-fav" : ""} ${groupPick && mainGroup(el) === groupPick ? "is-group-on" : ""} ${hideNames ? "is-hidden-name" : ""} ${dim ? "is-dim" : ""}" data-z="${el.z}" style="--el:${meta.color}" title="${hideNames ? el.s : `${el.n} (${el.s})`}">
       <span class="el-star" data-star="${el.z}" title="즐겨찾기">${isFav(el.z) ? "★" : "☆"}</span>
       <span class="z">${el.z}</span>
       <strong>${el.s}</strong>
@@ -1736,7 +1993,10 @@
       else byPos.set(`${el.p}-${el.g}`, el);
     });
     const groups = [`<span class="pt-label"></span>`].concat(
-      Array.from({ length: 18 }, (_, i) => `<span class="pt-label">${i + 1}</span>`)
+      Array.from({ length: 18 }, (_, i) => {
+        const g = i + 1;
+        return `<button type="button" class="pt-label is-group ${groupPick === g ? "is-on" : ""}" data-group="${g}" title="${g}족 성질 보기">${g}족</button>`;
+      })
     );
     const rows = [];
     for (let p = 1; p <= 7; p++) {
@@ -1770,6 +2030,9 @@
         }
         showElement(Number(btn.dataset.z));
       });
+    });
+    $$("#ptable [data-group]").forEach((btn) => {
+      btn.addEventListener("click", () => showGroup(Number(btn.dataset.group)));
     });
   }
 
@@ -1851,6 +2114,44 @@
     </p>`;
   }
 
+  function showGroup(g) {
+    const info = GROUPS[g];
+    if (!info) return;
+    groupPick = g;
+    elPick = null;
+    renderPtable();
+    renderFavCards();
+    const members = groupMembers(g);
+    const memberHtml = members.map((el) => {
+      const meta = EL_CATS[el.cat] || EL_CATS.unknown;
+      return `<button type="button" class="fav-card" data-z="${el.z}">
+        <span class="z">${el.z}</span>
+        <strong style="color:${meta.color}">${el.s}</strong>
+        <em>${el.n}</em>
+      </button>`;
+    }).join("");
+    $("#el-detail").innerHTML = `
+      <p class="kicker">주기율표 · 세로줄</p>
+      <div class="el-symbol" style="color:${info.color}">${g}족</div>
+      <div class="el-name">${info.name}</div>
+      <span class="el-cat-pill" style="--el:${info.color}">${info.valence}</span>
+      <p>${info.summary}</p>
+      <table class="prop-table">
+        <tr><th>바깥 전자</th><td>${info.valence}</td></tr>
+        <tr><th>이온</th><td>${info.ion}</td></tr>
+        <tr><th>이 족의 원소</th><td>${members.length}개</td></tr>
+      </table>
+      <h4>이 족의 성질</h4>
+      <ul class="group-props">${info.props.map((p) => `<li>${p}</li>`).join("")}</ul>
+      <p class="calc-hint">${info.note}</p>
+      <h4>대표 원소</h4>
+      <div class="fav-cards group-members">${memberHtml}</div>
+    `;
+    $$("#el-detail [data-z]").forEach((btn) => {
+      btn.addEventListener("click", () => showElement(Number(btn.dataset.z)));
+    });
+  }
+
   function showElement(z) {
     const el = ELEMENTS.find((x) => x.z === z);
     if (!el) {
@@ -1861,6 +2162,7 @@
       return;
     }
     elPick = z;
+    groupPick = null;
     renderPtable();
     renderFavCards();
     const meta = EL_CATS[el.cat] || EL_CATS.unknown;
@@ -1872,6 +2174,7 @@
       <button type="button" class="btn ${isFav(el.z) ? "primary" : "ghost"} el-fav-btn" data-fav="${el.z}">
         ${isFav(el.z) ? "★ 즐겨찾기 해제" : "☆ 즐겨찾기에 넣기"}
       </button>
+      ${mainGroup(el) ? `<button type="button" class="btn ghost el-fav-btn" data-show-group="${mainGroup(el)}">${mainGroup(el)}족 성질 보기</button>` : ""}
       <table class="prop-table">
         <tr><th>원자량</th><td>${el.mass}</td></tr>
         <tr><th>주기 · 족</th><td>${el.p}주기 · ${el.g}족</td></tr>
@@ -1885,6 +2188,9 @@
     `;
     $$("#el-detail [data-fav]").forEach((btn) => {
       btn.addEventListener("click", () => toggleFav(btn.dataset.fav));
+    });
+    $$("#el-detail [data-show-group]").forEach((btn) => {
+      btn.addEventListener("click", () => showGroup(Number(btn.dataset.showGroup)));
     });
     $$("#el-detail [data-goto-chem]").forEach((btn) => {
       btn.addEventListener("click", () => {

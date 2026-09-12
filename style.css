@@ -618,6 +618,27 @@ footer a { color: var(--teal); }
   place-items: center;
   text-align: center;
 }
+.pt-label.is-group {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .62rem;
+  font-weight: 800;
+  min-height: 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+}
+.pt-label.is-group:hover,
+.pt-label.is-group.is-on {
+  color: var(--ink);
+  border-color: var(--amber);
+  background: rgba(251,191,36,.16);
+  color: var(--amber);
+}
+.el-cell.is-group-on { outline: 1px solid rgba(251,191,36,.7); }
 .el-cell {
   appearance: none;
   position: relative;
@@ -676,6 +697,13 @@ footer a { color: var(--teal); }
   color: var(--amber);
 }
 .el-detail .el-name { margin: 4px 0 10px; font-size: 1.25rem; }
+.group-props {
+  margin: 8px 0 12px;
+  padding-left: 1.15em;
+  color: var(--muted);
+}
+.group-props li { margin: 6px 0; }
+.group-members { margin-top: 8px; }
 .el-cat-pill {
   display: inline-block;
   padding: 3px 8px;
