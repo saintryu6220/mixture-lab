@@ -171,7 +171,9 @@
     { q: "사인펜 점을 물에 담그면 색이 갈라지는 실험의 이름은?", choices: ["여과", "크로마토그래피", "원심 분리", "승화"], a: 1, why: "색소의 흡착력 차이로 이동 거리가 달라집니다." }
   ];
 
-  const TABS = ["learn", "finder", "lab", "chem", "quiz"];
+  const MIX_TABS = ["learn", "finder", "lab", "quiz"];
+  const CHEM_TABS = ["table", "chem"];
+  const TABS = ["home", ...MIX_TABS, ...CHEM_TABS];
 
   const COMPOUNDS = [
     { id: "h2o", name: "물", formula: "H2O", cat: "분자 화합물", density: 0.998, densNote: "20℃, 액체", sol: "무제한(용매)", solNote: "자신은 용매", curve: null, note: "밀도 비교의 기준. 4℃에서 1.000 g/cm³로 가장 큽니다." },
@@ -230,7 +232,19 @@
   let quizScore = 0;
   let quizLocked = false;
 
+  function tabArea(id) {
+    if (MIX_TABS.includes(id)) return "mix";
+    if (CHEM_TABS.includes(id)) return "chem";
+    return "home";
+  }
+
   function showTab(id, updateHash) {
+    if (!TABS.includes(id)) id = "home";
+    const area = tabArea(id);
+    const mixNav = $("#mix-tabs");
+    const chemNav = $("#chem-tabs");
+    if (mixNav) mixNav.hidden = area !== "mix";
+    if (chemNav) chemNav.hidden = area !== "chem";
     $$(".tab").forEach((t) => {
       const on = t.dataset.tab === id;
       t.classList.toggle("is-active", on);
@@ -243,7 +257,7 @@
     });
     if (id === "lab" && !sim) startLab(currentPreset.id, false);
     const homeBack = $("#home-back");
-    if (homeBack) homeBack.hidden = id === "learn";
+    if (homeBack) homeBack.hidden = id === "home";
     if (updateHash !== false) {
       const next = "#" + id;
       if (location.hash !== next) history.replaceState(null, "", next);
@@ -1636,6 +1650,158 @@
     $("#sol-out").innerHTML = out;
   }
 
+  const EL_CATS = {
+    alkali: { label: "알칼리 금속", color: "#fb7185" },
+    alkaline: { label: "알칼리 토금속", color: "#fdba74" },
+    transition: { label: "전이 금속", color: "#7dd3fc" },
+    post: { label: "전이후 금속", color: "#c4b5fd" },
+    metalloid: { label: "준금속", color: "#5eead4" },
+    nonmetal: { label: "비금속", color: "#86efac" },
+    halogen: { label: "할로젠", color: "#fde047" },
+    noble: { label: "비활성 기체", color: "#67e8f9" },
+    lanthanide: { label: "란타넘족", color: "#f0abfc" },
+    actinide: { label: "악티늄족", color: "#fda4af" },
+    unknown: { label: "성질 미확정", color: "#94a3b8" }
+  };
+  const ELEMENTS = window.PERIODIC_ELEMENTS || [];
+  let elPick = 26;
+  let elCatFilter = "전체";
+
+  function elMatches(el, q) {
+    if (!q) return true;
+    return String(el.z) === q || el.s.toLowerCase() === q || el.n.toLowerCase().includes(q);
+  }
+
+  function elCellHtml(el) {
+    const meta = EL_CATS[el.cat] || EL_CATS.unknown;
+    const q = ($("#pt-q")?.value || "").trim().toLowerCase();
+    const catOk = elCatFilter === "전체" || el.cat === elCatFilter;
+    const dim = !(elMatches(el, q) && catOk);
+    return `<button type="button" class="el-cell cat-${el.cat} ${elPick === el.z ? "is-on" : ""} ${dim ? "is-dim" : ""}" data-z="${el.z}" style="--el:${meta.color}" title="${el.n} (${el.s})">
+      <span class="z">${el.z}</span>
+      <strong>${el.s}</strong>
+      <em>${el.n}</em>
+    </button>`;
+  }
+
+  function emptyCell() {
+    return `<div class="el-cell is-empty" aria-hidden="true"></div>`;
+  }
+
+  function renderPtable() {
+    const byPos = new Map();
+    const lan = [];
+    const act = [];
+    ELEMENTS.forEach((el) => {
+      if (el.z >= 57 && el.z <= 71) lan.push(el);
+      else if (el.z >= 89 && el.z <= 103) act.push(el);
+      else byPos.set(`${el.p}-${el.g}`, el);
+    });
+    const groups = [`<span class="pt-label"></span>`].concat(
+      Array.from({ length: 18 }, (_, i) => `<span class="pt-label">${i + 1}</span>`)
+    );
+    const rows = [];
+    for (let p = 1; p <= 7; p++) {
+      const cells = [`<span class="pt-label">${p}</span>`];
+      for (let g = 1; g <= 18; g++) {
+        if (p === 6 && g === 3) {
+          cells.push(`<div class="el-cell is-marker cat-lanthanide" style="--el:${EL_CATS.lanthanide.color}">57–71</div>`);
+          continue;
+        }
+        if (p === 7 && g === 3) {
+          cells.push(`<div class="el-cell is-marker cat-actinide" style="--el:${EL_CATS.actinide.color}">89–103</div>`);
+          continue;
+        }
+        const el = byPos.get(`${p}-${g}`);
+        cells.push(el ? elCellHtml(el) : emptyCell());
+      }
+      rows.push(cells.join(""));
+    }
+    const fPad = emptyCell() + emptyCell();
+    const fEnd = emptyCell();
+    const lanRow = `<span class="pt-label">*</span>${fPad}${lan.map(elCellHtml).join("")}${fEnd}`;
+    const actRow = `<span class="pt-label">**</span>${fPad}${act.map(elCellHtml).join("")}${fEnd}`;
+    $("#ptable").innerHTML = `${groups.join("")}${rows.join("")}<div class="pt-gap"></div>${lanRow}${actRow}`;
+    $$("#ptable [data-z]").forEach((btn) => {
+      btn.addEventListener("click", () => showElement(Number(btn.dataset.z)));
+    });
+  }
+
+  function renderPtLegend() {
+    $("#pt-legend").innerHTML = `<button type="button" data-cat="전체" class="${elCatFilter === "전체" ? "is-on" : ""}"><i style="background:#f3ece3"></i>전체</button>` +
+      Object.entries(EL_CATS).map(([id, meta]) => `
+        <button type="button" data-cat="${id}" class="${elCatFilter === id ? "is-on" : ""}">
+          <i style="background:${meta.color}"></i>${meta.label}
+        </button>
+      `).join("");
+    $$("#pt-legend button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        elCatFilter = btn.dataset.cat;
+        renderPtLegend();
+        renderPtable();
+      });
+    });
+  }
+
+  function groupHint(el) {
+    if (el.cat === "alkali") return "1족 · 원자가 전자가 1개라 반응성이 큰 금속입니다.";
+    if (el.cat === "alkaline") return "2족 · 원자가 전자가 2개이고, 화합물이 암석·뼈에 많습니다.";
+    if (el.cat === "halogen") return "17족 · 원자가 전자가 7개라 전자 1개를 얻으려 잘 반응합니다.";
+    if (el.cat === "noble") return "18족 · 전자 껍질이 가득 차 거의 반응하지 않습니다.";
+    if (el.cat === "lanthanide") return "6주기 f-블록 · 희토류라고도 부르며 자석·형광 재료에 쓰입니다.";
+    if (el.cat === "actinide") return "7주기 f-블록 · 대부분 방사성입니다.";
+    if (el.g >= 3 && el.g <= 12 && el.cat === "transition") return `${el.g}족 전이 금속 · 여러 가지 이온 전하를 가질 수 있습니다.`;
+    return `${el.p}주기 ${el.g}족`;
+  }
+
+  function relatedCompounds(el) {
+    const hits = COMPOUNDS.filter((c) => {
+      const tokens = c.formula.replace(/·/g, "").match(/[A-Z][a-z]?/g) || [];
+      return tokens.includes(el.s);
+    }).slice(0, 5);
+    if (!hits.length) return "";
+    return `<p class="calc-hint">관련 화합물<br>
+      ${hits.map((c) => `<button type="button" class="btn ghost" data-goto-chem="${c.id}">${c.name}</button>`).join(" ")}
+    </p>`;
+  }
+
+  function showElement(z) {
+    const el = ELEMENTS.find((x) => x.z === z);
+    if (!el) return;
+    elPick = z;
+    renderPtable();
+    const meta = EL_CATS[el.cat] || EL_CATS.unknown;
+    $("#el-detail").innerHTML = `
+      <p class="kicker">원자 번호 ${el.z}</p>
+      <div class="el-symbol" style="color:${meta.color}">${el.s}</div>
+      <div class="el-name">${el.n}</div>
+      <span class="el-cat-pill" style="--el:${meta.color}">${meta.label}</span>
+      <table class="prop-table">
+        <tr><th>원자량</th><td>${el.mass}</td></tr>
+        <tr><th>주기 · 족</th><td>${el.p}주기 · ${el.g}족</td></tr>
+        <tr><th>실온에서의 상태</th><td>${el.state}</td></tr>
+        <tr><th>분류</th><td>${meta.label}</td></tr>
+      </table>
+      <p>${groupHint(el)}</p>
+      <h4>특징</h4>
+      <p>${el.trait}</p>
+      ${relatedCompounds(el)}
+    `;
+    $$("#el-detail [data-goto-chem]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        showTab("chem");
+        showCompound(btn.dataset.gotoChem);
+      });
+    });
+  }
+
+  function initPeriodic() {
+    if (!$("#ptable")) return;
+    renderPtLegend();
+    showElement(elPick);
+    $("#pt-q")?.addEventListener("input", renderPtable);
+  }
+
   function initChem() {
     renderChemCats();
     fillRefSelects();
@@ -1688,9 +1854,10 @@
   renderPresets();
   renderQuiz();
   initChem();
+  initPeriodic();
   bind();
   startLab("magnet", false);
   const initial = location.hash.replace("#", "");
   if (TABS.includes(initial)) showTab(initial, false);
-  else showTab("learn", false);
+  else showTab("home", false);
 })();

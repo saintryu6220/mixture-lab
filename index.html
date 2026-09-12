@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>혼합물 분리 실험실</title>
-  <meta name="description" content="혼합물 분리 실험과 함께 여러 화합물의 화학식, 밀도·용해도 이론값, 계산기를 제공하는 중학교 과학 사이트입니다." />
+  <title>science-lab</title>
+  <meta name="description" content="science-lab: 혼합물 분리 실험실과 화학식(주기율표, 용해도, 계산기)을 나누어 배우는 중학교 과학 사이트입니다." />
   <meta name="theme-color" content="#100e0c" />
-  <meta property="og:title" content="혼합물 분리 실험실" />
-  <meta property="og:description" content="성질의 차이로 섞인 물질을 나눠 보세요. 원리, 방법 찾기, 실험 시뮬레이션, 퀴즈." />
+  <meta property="og:title" content="science-lab" />
+  <meta property="og:description" content="혼합물 분리 실험실과 화학식 실험실. 주기율표, 용해도, 계산기를 따로 이용하세요." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://saintryu6220.github.io/mixture-lab/" />
   <meta property="og:locale" content="ko_KR" />
@@ -23,7 +23,7 @@
   <div class="bg-glow" aria-hidden="true"></div>
 
   <header class="topbar">
-    <button type="button" class="brand" id="home-link" data-goto="learn" aria-label="메인 화면으로">
+    <button type="button" class="brand" id="home-link" data-goto="home" aria-label="science-lab 홈">
       <span class="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 40 40" width="36" height="36">
           <path d="M12 6h16l-2 10H14L12 6z" fill="#e8d5b0" opacity=".9"/>
@@ -34,22 +34,47 @@
         </svg>
       </span>
       <div>
-        <h1>혼합물 분리 실험실</h1>
-        <p>성질의 차이로 섞인 물질을 나눠 보세요</p>
+        <h1>science-lab</h1>
+        <p>중학교 과학 실험실</p>
       </div>
     </button>
-    <nav class="tabs" role="tablist">
-      <button class="tab is-active" data-tab="learn" role="tab" aria-selected="true">홈</button>
+    <nav class="tabs mix-tabs" id="mix-tabs" role="tablist" hidden>
+      <button class="tab" data-tab="learn" role="tab" aria-selected="false">원리</button>
       <button class="tab" data-tab="finder" role="tab" aria-selected="false">방법 찾기</button>
       <button class="tab" data-tab="lab" role="tab" aria-selected="false">실험하기</button>
-      <button class="tab" data-tab="chem" role="tab" aria-selected="false">화학식·계산기</button>
       <button class="tab" data-tab="quiz" role="tab" aria-selected="false">퀴즈</button>
     </nav>
-    <button type="button" class="btn ghost home-back" id="home-back" data-goto="learn" hidden>← 메인으로</button>
+    <nav class="tabs chem-tabs" id="chem-tabs" role="tablist" hidden>
+      <button class="tab" data-tab="table" role="tab" aria-selected="false">주기율표</button>
+      <button class="tab" data-tab="chem" role="tab" aria-selected="false">화합물·용해도</button>
+    </nav>
+    <button type="button" class="btn ghost home-back" id="home-back" data-goto="home" hidden>← science-lab</button>
   </header>
 
   <main>
-    <section id="learn" class="panel is-active" role="tabpanel">
+    <section id="home" class="panel is-active" role="tabpanel">
+      <div class="hub">
+        <p class="kicker">science-lab</p>
+        <h2>배우고 싶은 <em>실험실</em>을 고르세요</h2>
+        <p class="lede">혼합물 분리와 화학식은 서로 다른 실험실입니다. 한곳을 들어가면 그 실험실 메뉴만 보입니다.</p>
+        <div class="hub-grid">
+          <button type="button" class="hub-card" data-goto="learn">
+            <span class="kicker">Lab 01</span>
+            <h3>혼합물 분리실험실</h3>
+            <p>자성, 입자 크기, 용해도, 끓는점처럼 성질의 차이로 섞인 물질을 나눕니다. 방법 찾기, 시뮬레이션, 퀴즈가 있습니다.</p>
+            <span class="hub-go">들어가기 →</span>
+          </button>
+          <button type="button" class="hub-card hub-card-chem" data-goto="table">
+            <span class="kicker">Lab 02</span>
+            <h3>화학식</h3>
+            <p>원소 주기율표와 각 원소의 특징, 화합물의 화학식, 온도에 따른 용해도, 밀도·용해도 계산기를 봅니다.</p>
+            <span class="hub-go">들어가기 →</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="learn" class="panel" role="tabpanel" hidden>
       <div class="hero">
         <div class="hero-copy">
           <p class="kicker">핵심 한 줄</p>
@@ -62,7 +87,7 @@
           <div class="hero-actions">
             <button class="btn primary" data-goto="finder">내 혼합물 분리법 찾기</button>
             <button class="btn ghost" data-goto="lab">바로 실험하기</button>
-            <button class="btn ghost" data-goto="chem">화학식·계산기</button>
+            <button class="btn ghost" data-goto="home">← science-lab</button>
           </div>
         </div>
         <div class="hero-card">
@@ -99,7 +124,7 @@
       <div class="finder-layout">
         <div>
           <p class="kicker">맞춤 분리 설계</p>
-          <button type="button" class="btn ghost page-home" data-goto="learn">← 메인으로</button>
+          <button type="button" class="btn ghost page-home" data-goto="learn">← 혼합물 분리 홈</button>
           <h2>섞여 있는 물질을 고르세요</h2>
           <p class="lede">2가지 이상을 고르면, 성질을 비교해 가장 쉬운 분리 순서를 알려 줍니다.</p>
           <div class="chip-grid" id="substance-chips"></div>
@@ -127,7 +152,7 @@
               <p id="lab-why">자성의 차이를 이용합니다. 철만 자석에 붙습니다.</p>
             </div>
             <div class="stage-controls">
-              <button class="btn ghost" data-goto="learn">← 메인으로</button>
+              <button class="btn ghost" data-goto="learn">← 혼합물 분리 홈</button>
               <button class="btn ghost" id="sim-prev">이전 단계</button>
               <button class="btn primary" id="sim-play">실험 시작</button>
               <button class="btn ghost" id="sim-next">다음 단계</button>
@@ -163,13 +188,37 @@
       </div>
     </section>
 
+    <section id="table" class="panel" role="tabpanel" hidden>
+      <div class="chem-head">
+        <div>
+          <p class="kicker">화학식 · 원소</p>
+          <button type="button" class="btn ghost page-home" data-goto="home">← science-lab</button>
+          <h2>원소 주기율표</h2>
+          <p class="lede">칸을 누르면 그 원소의 특징이 나옵니다. 같은 족은 세로로 비슷한 성질을 가지고, 같은 주기는 가로로 원자 번호가 커집니다.</p>
+        </div>
+        <label class="chem-search">
+          <span>원소 찾기</span>
+          <input id="pt-q" type="search" placeholder="이름 또는 기호 (예: 철, Fe, 26)" />
+        </label>
+      </div>
+      <div class="pt-legend" id="pt-legend"></div>
+      <div class="pt-layout">
+        <div class="pt-scroll">
+          <div class="ptable" id="ptable" role="grid" aria-label="주기율표"></div>
+        </div>
+        <article class="chem-card el-detail" id="el-detail">
+          <p class="empty-hint">주기율표에서 원소를 누르면 원자 번호, 분류, 특징이 나옵니다.</p>
+        </article>
+      </div>
+    </section>
+
     <section id="chem" class="panel" role="tabpanel" hidden>
       <div class="chem-head">
         <div>
-          <p class="kicker">물질 정보</p>
-          <button type="button" class="btn ghost page-home" data-goto="learn">← 메인으로</button>
-          <h2>화학식, 이론값, 계산기</h2>
-          <p class="lede">여러 화합물의 화학식을 보고, 밀도·용해도 이론값과 비교하며 직접 계산해 보세요. 값은 보통 20℃, 1기압 기준입니다.</p>
+          <p class="kicker">화학식 · 화합물</p>
+          <button type="button" class="btn ghost page-home" data-goto="home">← science-lab</button>
+          <h2>화학식, 용해도, 계산기</h2>
+          <p class="lede">화합물의 화학식과 밀도·용해도 이론값을 비교하고 계산해 보세요. 원소 특징은 주기율표 탭에서 볼 수 있습니다. 값은 보통 20℃, 1기압 기준입니다.</p>
         </div>
         <label class="chem-search">
           <span>물질 찾기</span>
@@ -247,7 +296,7 @@
     <section id="quiz" class="panel" role="tabpanel" hidden>
       <div class="quiz-wrap">
         <p class="kicker">이해 확인</p>
-        <button type="button" class="btn ghost page-home" data-goto="learn">← 메인으로</button>
+        <button type="button" class="btn ghost page-home" data-goto="learn">← 혼합물 분리 홈</button>
         <h2 id="quiz-q">질문이 여기에 나옵니다</h2>
         <div class="quiz-options" id="quiz-options"></div>
         <p class="quiz-feedback" id="quiz-feedback" role="status"></p>
@@ -261,10 +310,11 @@
   </main>
 
   <footer>
-    <p>중학교 과학 · 물질의 특성 · 혼합물의 분리 · 성질의 차이를 이용하면 됩니다</p>
+    <p>science-lab · 혼합물 분리실험실 · 화학식(주기율표·용해도)</p>
     <p class="site-url">사이트 주소 · <a href="https://saintryu6220.github.io/mixture-lab/">saintryu6220.github.io/mixture-lab</a></p>
   </footer>
 
+  <script src="elements.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
