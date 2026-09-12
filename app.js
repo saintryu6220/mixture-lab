@@ -1767,7 +1767,13 @@
 
   function showElement(z) {
     const el = ELEMENTS.find((x) => x.z === z);
-    if (!el) return;
+    if (!el) {
+      renderPtable();
+      if ($("#el-detail")) {
+        $("#el-detail").innerHTML = `<p class="empty-hint">원소 데이터를 불러오지 못했습니다. 페이지를 새로고침해 주세요.</p>`;
+      }
+      return;
+    }
     elPick = z;
     renderPtable();
     const meta = EL_CATS[el.cat] || EL_CATS.unknown;
@@ -1798,6 +1804,7 @@
   function initPeriodic() {
     if (!$("#ptable")) return;
     renderPtLegend();
+    renderPtable();
     showElement(elPick);
     $("#pt-q")?.addEventListener("input", renderPtable);
   }
